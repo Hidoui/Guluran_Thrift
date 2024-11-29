@@ -1332,23 +1332,6 @@ ol {
 	margin-bottom: 10px;
 }
 
-.product__details__text .rating {
-	margin-bottom: 20px;
-}
-
-.product__details__text .rating i {
-	font-size: 15px;
-	color: #f7941d;
-	display: inline-block;
-	margin-right: -5px;
-}
-
-.product__details__text .rating span {
-	display: inline-block;
-	color: #3d3d3d;
-	margin-left: 5px;
-}
-
 .product__details__text h3 {
 	color: #0d0d0d;
 	font-weight: 700;
