@@ -46,7 +46,7 @@ session_start();
                                 </a>
                                 <ul class="dropdown">
                                     <li><a href="./account.php">Account</a></li>
-                                    <li><a href="./log-out.php">Sign Out</a></li>
+                                    <li><a href="./sign-out.php">Sign Out</a></li>
                                 </ul>
                             <?php else: ?>
                                 <a href="#">

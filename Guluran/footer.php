@@ -21,14 +21,13 @@
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
                         <div class="hero__social">
                             <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>Shopping</h6>
+                        <h6>Belanja</h6>
                         <ul>
                             <li><a href="#">Clothing Store</a></li>
                             <li><a href="#">Trending Shoes</a></li>
@@ -38,11 +37,11 @@
                 </div>
                 <div class="col-lg-4 offset-lg-1 col-md-6 col-sm-6">
                     <div class="footer__widget">
-                        <h6>NewLetter</h6>
+                        <h6>Informasi</h6>
                         <div class="footer__newslatter">
                             <p>Be the first to know about new arrivals, look books, sales & promo!</p>
                             <form action="#">
-                                <input type="text" placeholder="Your email">
+                                <input type="text" placeholder="Email">
                                 <button type="submit"><span class="icon_mail_alt"></span></button>
                             </form>
                         </div>
