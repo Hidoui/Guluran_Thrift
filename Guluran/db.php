@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "db_guluran";
+$dbname = "guluran_thrift";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
