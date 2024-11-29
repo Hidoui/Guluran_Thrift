@@ -18,16 +18,16 @@ session_start();
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
                         <a href="./index.php">
-                            <h1 style="font-family: 'Poppins', sans-serif; font-size: 30px; font-weight: 800; color: #000;">Guluran</h1>
+                            <h1 style="font-family: 'Poppins', sans-serif; font-size: 25px; font-weight: 800; color: #000;">Guluran</h1>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>"><a href="./index.php">Home</a></li>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>"><a href="./shop.php">Shop</a></li>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>"><a href="./contact.php">Contacts</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>"><a href="./index.php">Halaman</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>"><a href="./shop.php">Belanja</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>"><a href="./contact.php">Kontak</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -46,7 +46,7 @@ session_start();
                                 </a>
                                 <ul class="dropdown">
                                     <li><a href="./account.php">Account</a></li>
-                                    <li><a href="./log-out.php">Log Out</a></li>
+                                    <li><a href="./log-out.php">Sign Out</a></li>
                                 </ul>
                             <?php else: ?>
                                 <a href="#">

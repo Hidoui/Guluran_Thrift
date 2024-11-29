@@ -15,7 +15,7 @@
                     <div class="footer__about">
                         <div class="footer__logo">
                             <a href="./index.php">
-                                <h1 style="font-family: 'Poppins', sans-serif; font-size: 30px; font-weight: 800; color: #fff;">Guluran.</h1>
+                                <h1 style="font-family: 'Poppins', sans-serif; font-size: 25px; font-weight: 800; color: #fff;">Guluran.</h1>
                             </a>
                         </div>
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
@@ -55,7 +55,7 @@
                         <p>Copyright ©
                             <script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | Guluran Thrift
+                            </script> Guluran Thrift | All rights reserved
                         </p>
                     </div>
                 </div>
