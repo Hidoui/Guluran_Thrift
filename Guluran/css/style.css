@@ -520,7 +520,7 @@ ol {
 }
 
 .header__nav__option a span {
-	color: #0d0d0d;
+	color: #111111;
 	font-size: 11px;
 	position: absolute;
 	left: 5px;
@@ -834,7 +834,7 @@ ol {
 }
 
 .product__item__text h5 {
-	color: #0d0d0d;
+	color: #111111;
 	font-weight: 700;
 }
 
@@ -1333,7 +1333,7 @@ ol {
 }
 
 .product__details__text h3 {
-	color: #0d0d0d;
+	color: #111111;
 	font-weight: 700;
 	margin-bottom: 16px;
 }
@@ -1459,7 +1459,7 @@ ol {
 }
 
 .product__details__cart__option .quantity .pro-qty input {
-	color: #0d0d0d;
+	color: #111111;
 	font-size: 15px;
 	font-weight: 700;
 	width: 70px;
@@ -1470,7 +1470,7 @@ ol {
 
 .product__details__cart__option .quantity .pro-qty .qtybtn {
 	font-size: 18px;
-	color: #0d0d0d;
+	color: #111111;
 	position: absolute;
 	right: 15px;
 	top: 3px;
@@ -1842,7 +1842,7 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
-	color: #0d0d0d;
+	color: #111111;
 	font-weight: 700;
 }
 
@@ -2018,7 +2018,7 @@ ol {
 
 .checkout__input__checkbox label {
 	font-size: 15px;
-	color: #0d0d0d;
+	color: #111111;
 	position: relative;
 	padding-left: 30px;
 	cursor: pointer;
@@ -2066,7 +2066,7 @@ ol {
 }
 
 .checkout__input__checkbox p {
-	color: #0d0d0d;
+	color: #111111;
 	font-size: 14px;
 	line-height: 24px;
 	margin-bottom: 22px;

@@ -8,6 +8,10 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Box Icons -->
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="path-to-boxicons/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,15 +38,15 @@ session_start();
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch">
-                            <img src="img/icon/search.png" alt="">
+                            <i class="bx bx-search" style="color:#111111; font-size: 20px"></i>
                         </a>
                         <a href="./shopping-cart.php">
-                            <img src="img/icon/cart.png" alt="">
+                            <i class="bx bx-shopping-bag" style="color:#111111; font-size: 20px"></i>
                         </a>
                         <nav class="header__top__hover">
                             <?php if (isset($_SESSION['user_id'])): ?>
                                 <a href="#">
-                                    <img src="img/icon/heart.png" alt="">
+                                    <i class="bx bx-user" style="color:#111111; font-size: 20px"></i>
                                 </a>
                                 <ul class="dropdown">
                                     <li><a href="./account.php">Account</a></li>
@@ -50,7 +54,7 @@ session_start();
                                 </ul>
                             <?php else: ?>
                                 <a href="#">
-                                    <img src="img/icon/heart.png" alt="">
+                                    <i class="bx bx-user" style="color:#111111; font-size: 20px"></i>
                                 </a>
                                 <ul class="dropdown">
                                     <li><a href="./sign-in.php">Sign In</a></li>
@@ -72,7 +76,7 @@ session_start();
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
             <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search...">
+                <input type="text" id="search-input" placeholder="Pencarian...">
             </form>
         </div>
     </div>
