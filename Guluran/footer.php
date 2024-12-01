@@ -18,7 +18,7 @@
                                 <h1 style="font-family: 'Poppins', sans-serif; font-size: 25px; font-weight: 800; color: #fff;">Guluran.</h1>
                             </a>
                         </div>
-                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <p>Barang berkualitas dengan harga yang lebih terjangkau.</p>
                         <div class="hero__social">
                             <a href="#"><i class="fa fa-instagram"></i></a>
                             <a href="#"><i class="fa fa-whatsapp"></i></a>
@@ -29,9 +29,9 @@
                     <div class="footer__widget">
                         <h6>Belanja</h6>
                         <ul>
-                            <li><a href="#">Clothing Store</a></li>
-                            <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Sale</a></li>
+                            <li><a href="#">Related Product</a></li>
+                            <li><a href="#">Best Seller</a></li>
+                            <li><a href="#">New Arrival</a></li>
                         </ul>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="footer__widget">
                         <h6>Informasi</h6>
                         <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promo!</p>
+                            <p>Jadilah yang pertama mengetahui tentang kedatangan produk baru!</p>
                             <form action="#">
                                 <input type="text" placeholder="Email">
                                 <button type="submit"><span class="icon_mail_alt"></span></button>
