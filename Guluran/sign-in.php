@@ -74,11 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Email<span>*</span></p>
-                                    <input type="email" name="email" placeholder="Your email" required>
+                                    <input type="email" name="email" placeholder="Masukkan Email" required>
                                 </div>
                                 <div class="checkout__input">
                                     <p>Password<span>*</span></p>
-                                    <input type="password" name="password" placeholder="Your password" required>
+                                    <input type="password" name="password" placeholder="Masukkan Password" required>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     <label for="remember-me">
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="continue__btn update__btn">
-                                            <button type="submit">Confirm</button>
+                                            <button type="submit">Konfirmasi</button>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6">
