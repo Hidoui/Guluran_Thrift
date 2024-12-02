@@ -38,10 +38,9 @@ include('header.php');
                     <div class="row">
                         <div class="col-xl-5 col-lg-7 col-md-8">
                             <div class="hero__text">
-                                <h2>Summer - Fall Collections 2024</h2>
-                                <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
-                                    commitment to exceptional quality.</p>
-                                <a href="./shop.php" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <h2>Thrift Store 2024</h2>
+                                <p>Temukan koleksi thrift terbaik untuk penampilan yang elegan dan stylish.</p>
+                                <a href="./shop.php" class="primary-btn">Belanja Sekarang <span class="arrow_right"></span></a>
                             </div>
                         </div>
                     </div>
@@ -58,16 +57,16 @@ include('header.php');
                 <div class="col-lg-12">
                     <ul class="filter__controls">
                         <li class="active" data-filter="*">Related Products</li>
+                        <li data-filter=".best-sellers">Best Sellers</li>
                         <li data-filter=".new-arrivals">New Arrivals</li>
-                        <li data-filter=".hot-sales">Hot Sales</li>
                     </ul>
                 </div>
             </div>
             <div class="row product__filter">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                    <div class="product__item new">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix best-sellers">
+                    <div class="product__item sale">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                            <span class="label">New</span>
+                            <span class="label">Best</span>
                             <ul class="product__hover">
                                 <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
                                 <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
@@ -84,10 +83,10 @@ include('header.php');
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
-                    <div class="product__item sale">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                    <div class="product__item new">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-12.jpg">
-                            <span class="label">Sale</span>
+                            <span class="label">New</span>
                             <ul class="product__hover">
                                 <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
                                 <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
@@ -104,7 +103,7 @@ include('header.php');
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix best-sellers">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
                             <ul class="product__hover">
@@ -123,7 +122,7 @@ include('header.php');
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
                             <ul class="product__hover">
