@@ -29,7 +29,7 @@ session_start();
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>"><a href="./index.php">Halaman</a></li>
+                            <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>"><a href="./index.php">Beranda</a></li>
                             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>"><a href="./shop.php">Belanja</a></li>
                             <li class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>"><a href="./contact.php">Kontak</a></li>
                         </ul>
