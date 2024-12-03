@@ -35,9 +35,143 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
+<style>
+    /* body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+    } */
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      color: #333;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+    }
+
+    .action-btns button {
+      margin-left: 5px;
+    }
+
+    .btn-detail {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn-edit {
+      background-color: #ffa500;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn-add {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-detail:hover {
+      background-color: #45a049;
+    }
+
+    .btn-edit:hover {
+      background-color: #e68900;
+    }
+
+    .btn-delete:hover {
+      background-color: #d32f2f;
+    }
+
+    .btn-add:hover {
+      background-color: #0069d9;
+    }
+
+    .pagination .page-item .page-link {
+      color: #333;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+    }
+
+    .pagination .page-item:hover .page-link {
+      background-color: #45a049;
+      border-color: #45a049;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .btn-add-container {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .custom-input {
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: all 0.3s ease; /* Smooth transition for focus */
+  }
+
+  .custom-input:focus {
+    border-color: #0056b3; /* Change border color when focused */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Highlight input with blue shadow */
+    outline: none; /* Remove the default focus outline */
+  }
+
+  .form-label {
+    font-weight: 600; /* Make labels bold */
+    color: #333; /* Dark color for the label text */
+  }
+
+  .form-text.text-muted {
+    font-size: 0.875rem; /* Slightly smaller text */
+  }
+  .custom-label {
+    margin-left: 10px; /* Move the label slightly to the left */
+    font-weight: 600; /* Bold label */
+    color: #333; /* Dark color for label text */
+  }
+
+  .custom-input {
+    border-radius: 2px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    padding-left: 20px; /* Add space to the left of placeholder text */
+    transition: all 0.3s ease; /* Smooth transition for focus */
+  }
+
+  .custom-input::placeholder {
+    color: #999; /* Placeholder text color */
+    font-size: 0.9rem; /* Slightly smaller font size */
+  }
+
+  .custom-input:focus {
+    border-color: #0056b3; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Blue shadow on focus */
+    outline: none; /* Remove default outline */
+  }
+
+  .form-text.text-muted {
+    font-size: 0.875rem; /* Slightly smaller text */
+  }
+
+  </style>
 
 <body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
@@ -49,7 +183,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/dashboard.html">
+          <a class="nav-link text-dark" href="../pages/dashboard.php">
             <i class="material-symbols-rounded opacity-5">dashboard</i>
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
@@ -61,7 +195,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/data_pesanan.php">
+          <a class="nav-link text-dark " href="../pages/data_pesanan.php">
             <i class="material-symbols-rounded opacity-5">receipt_long</i>
             <span class="nav-link-text ms-1">Data Pesanan</span>
           </a>
@@ -117,15 +251,104 @@
         </div>
         </div>
       </div>
+  <!-- Button to Add Product -->
+  
+
+  <!-- Table displaying products -->
+  <div class="table-wrapper">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>ID Transaksi</th>
+          <th>Tanggal</th>
+          <th>Nama Produk</th>
+          <th>Kategori</th>
+          <th>Harga</th>
+          <th>Nama Pembeli</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><img src="https://via.placeholder.com/50" alt="Produk 1" class="rounded-circle"></td>
+          <td>ID-00016</td>
+          <td>Smartphone</td>
+          <td>Elektronik</td>
+          <td>Rp 5.000.000</td>
+          <td>50</td>
+          <td>Selesai</td>
+          <td class="action-btns">
+            <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
+            <td class="action-btns">
+            <button class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#editConfirmModal"><i class="fas fa-edit"></i> Ubah</button>
+            <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i> Hapus</button>
+          </td>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+<!-- Modal Konfirmasi Edit -->
+<div class="modal fade" id="editConfirmModal" tabindex="-1" aria-labelledby="editConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-black">
+        <h5 class="modal-title" id="editConfirmModalLabel">Konfirmasi Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin mengedit data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-warning" id="confirmEditBtn">Ya, Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Hapus</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add custom styles -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-success" id="saveProductBtn">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   </main>
+ 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script>
+  <!-- <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     new Chart(ctx, {
@@ -366,7 +589,7 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
-  </script>
+  </script> -->
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
