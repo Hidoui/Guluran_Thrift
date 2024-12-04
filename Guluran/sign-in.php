@@ -3,38 +3,37 @@ include('db.php');
 include('header.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
+    $email = $conn->real_escape_string($email);
+    $password = $conn->real_escape_string($password);
 
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($sql);
 
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
+            session_start();
             $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['user_name'] = $row['full_name'];
-            $_SESSION['user_email'] = $row['email'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $row['email'];
 
-            $domain = substr(strrchr($email, "@"), 1);
-            if ($domain == "admin.com") {
-                header("Location: dashboard.php");
-            } elseif ($domain == "gmail.com") {
-                header("Location: index.php");
+            if (strpos($email, '@admin.com') !== false) {
+                header("Location: ./admin/pages/dashboard.php");
             } else {
                 header("Location: index.php");
             }
             exit();
         } else {
-            echo "Password salah!";
+            $error_message = "Invalid email or password!";
         }
     } else {
-        echo "Email tidak ditemukan!";
+        $error_message = "User not found!";
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

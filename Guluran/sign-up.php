@@ -3,22 +3,36 @@ include('db.php');
 include('header.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $full_name = mysqli_real_escape_string($conn, $_POST['full_name']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $agree_terms = isset($_POST['agree_terms']) ? 1 : 0;
 
-    if ($password !== $confirm_password) {
-        echo "Password tidak cocok!";
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error_message = "All fields are required!";
+    } elseif ($password !== $confirm_password) {
+        $error_message = "Passwords do not match!";
+    } elseif (!$agree_terms) {
+        $error_message = "You must agree to the terms and conditions!";
     } else {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $email = $conn->real_escape_string($email);
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $result = $conn->query($sql);
 
-        $sql = "INSERT INTO users (full_name, email, password) VALUES ('$full_name', '$email', '$hashed_password')";
-        if (mysqli_query($conn, $sql)) {
-            echo "Registrasi berhasil!";
-            header("Location: sign-in.php");
+        if ($result->num_rows > 0) {
+            $error_message = "This email is already registered!";
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            $username = $conn->real_escape_string($username);
+            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password_hash')";
+            if ($conn->query($sql) === TRUE) {
+                header("Location: sign-in.php");
+                exit();
+            } else {
+                $error_message = "Error: " . $sql . "<br>" . $conn->error;
+            }
         }
     }
 }
@@ -52,72 +66,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="loader"></div>
     </div>
 
-    <body>
-        <!-- Sign Up Section Begin -->
-        <section class="login spad">
-            <div class="container">
-                <div class="login__form">
-                    <form method="POST">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Full Name<span>*</span></p>
-                                    <input type="text" name="full_name" placeholder="Masukkan Nama Lengkap" required>
-                                </div>
-                                <div class="checkout__input">
-                                    <p>Email<span>*</span></p>
-                                    <input type="email" name="email" placeholder="Masukkan Email" required>
-                                </div>
-                                <div class="checkout__input">
-                                    <p>Password<span>*</span></p>
-                                    <input type="password" name="password" placeholder="Masukkan Password" required>
-                                </div>
-                                <div class="checkout__input">
-                                    <p>Confirm Password<span>*</span></p>
-                                    <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
-                                </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="remember-me">
-                                        I agree to the terms and conditions
-                                        <input type="checkbox" id="remember-me" required>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="continue__btn update__btn">
-                                            <button type="submit">Konfirmasi</button>
-                                        </div>
+    <!-- Sign Up Section Begin -->
+    <section class="login spad">
+        <div class="container">
+            <div class="login__form">
+                <form method="POST">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Username<span>*</span></p>
+                                <input type="text" name="username" placeholder="Masukkan Nama" required>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Email<span>*</span></p>
+                                <input type="email" name="email" placeholder="Masukkan Email" required>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Password<span>*</span></p>
+                                <input type="password" name="password" placeholder="Masukkan Password" required>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Confirm Password<span>*</span></p>
+                                <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="agree-terms">
+                                    I agree to the terms and conditions
+                                    <input type="checkbox" id="agree-terms" name="agree_terms" required>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn update__btn">
+                                        <button type="submit">Konfirmasi</button>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="continue__btn">
-                                            <a href="./sign-in.php">Sign In</a>
-                                        </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn">
+                                        <a href="./sign-in.php">Sign In</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </section>
-        <!-- Sign Up Section End -->
+        </div>
+    </section>
+    <!-- Sign Up Section End -->
 
-        <?php
-        include('footer.php');
-        ?>
+    <?php include('footer.php'); ?>
 
-        <!-- JS Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+    <!-- JS Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
 
 </html>
