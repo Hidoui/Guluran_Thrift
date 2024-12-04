@@ -1,5 +1,29 @@
 <?php
+include('db.php');
 include('header.php');
+
+$category_filter = '';
+$price_filter = '';
+
+if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
+    $category_filter = " WHERE category_id = " . $_GET['category_id'];
+}
+
+if (isset($_GET['price']) && preg_match('/^(\d+)-(\d+)$/', $_GET['price'], $matches)) {
+    $min_price = $matches[1];
+    $max_price = $matches[2];
+    if ($category_filter === '') {
+        $price_filter = " WHERE price BETWEEN $min_price AND $max_price";
+    } else {
+        $price_filter = " AND price BETWEEN $min_price AND $max_price";
+    }
+}
+
+$sql = "SELECT * FROM products" . $category_filter . $price_filter;
+$result = $conn->query($sql);
+
+$sql_categories = "SELECT * FROM categories";
+$result_categories = $conn->query($sql_categories);
 ?>
 
 <!DOCTYPE html>
@@ -64,8 +88,17 @@ include('header.php');
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll">
-                                                    <li><a href="#">Laki-laki</a></li>
-                                                    <li><a href="#">Perempuan</a></li>
+                                                    <?php
+                                                    if ($result_categories->num_rows > 0) {
+                                                        while ($category = $result_categories->fetch_assoc()) {
+                                                            $category_name = $category['category_name'];
+                                                            $category_id = $category['category_id'];
+                                                            echo '<li><a href="?category_id=' . $category_id . '">' . $category_name . '</a></li>';
+                                                        }
+                                                    } else {
+                                                        echo "No categories found";
+                                                    }
+                                                    ?>
                                                 </ul>
                                             </div>
                                         </div>
@@ -79,8 +112,9 @@ include('header.php');
                                         <div class="card-body">
                                             <div class="shop__sidebar__price">
                                                 <ul>
-                                                    <li><a href="#">Rp.0 - Rp.50.000</a></li>
-                                                    <li><a href="#">Rp.50.000 - Rp.100.000</a></li>
+                                                    <li><a href="?category_id=<?php echo $_GET['category_id'] ?? ''; ?>&price=0-50000">Rp.0 - Rp.50.000</a></li>
+                                                    <li><a href="?category_id=<?php echo $_GET['category_id'] ?? ''; ?>&price=50000-100000">Rp.50.000 - Rp.100.000</a></li>
+                                                    <li><a href="?category_id=<?php echo $_GET['category_id'] ?? ''; ?>&price=100000-200000">Rp.100.000 - Rp.200.000</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -109,113 +143,58 @@ include('header.php');
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="card">
-                                    <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
-                                    </div>
-                                    <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__color">
-                                                <label class="c-1" for="sp-1">
-                                                    <input type="radio" id="sp-1">
-                                                </label>
-                                                <label class="c-2" for="sp-2">
-                                                    <input type="radio" id="sp-2">
-                                                </label>
-                                                <label class="c-3" for="sp-3">
-                                                    <input type="radio" id="sp-3">
-                                                </label>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item new">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                    <span class="label">New</span>
-                                    <ul class="product__hover">
-                                        <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                        <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Piqué Biker Jacket</h6>
-                                    <h5>Rp.50.000</h5>
-                                    <div class="product__color__select">
-                                        <label class="active black" for="pc-23">
-                                            <input type="radio" id="pc-23">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $product_id = $row['product_id'];
+                                $product_name = $row['name'];
+                                $product_description = $row['description'];
+                                $product_price = $row['price'];
+                                $product_image = $row['image'];
+                                $created_at = $row['created_at'];
 
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item sale">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-12.jpg">
-                                    <span class="label">Sale</span>
-                                    <ul class="product__hover">
-                                        <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                        <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Ankle Boots</h6>
-                                    <h5>Rp.100.000</h5>
-                                    <div class="product__color__select">
-                                        <label class="active black" for="pc-23">
-                                            <input type="radio" id="pc-23">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                        <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Diagonal Textured Cap</h6>
-                                    <h5>Rp.50.000</h5>
-                                    <div class="product__color__select">
-                                        <label class="active black" for="pc-23">
-                                            <input type="radio" id="pc-23">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
-                                    <ul class="product__hover">
-                                        <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                        <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6>Basic Flowing Scarf</h6>
-                                    <h5>Rp.100.000</h5>
-                                    <div class="product__color__select">
-                                        <label class="active black" for="pc-23">
-                                            <input type="radio" id="pc-23">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                $time_diff = strtotime('now') - strtotime($created_at);
+                                $is_new = ($time_diff <= 3600);
+
+                                $is_sale = ($product_price > 100000);
+
+                                $new_class = $is_new ? 'new-arrivals' : '';
+                                $sale_class = $is_sale ? 'best-sellers' : '';
+
+                                echo '<div class="col-lg-4 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
+                                echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
+                                echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">';
+
+                                if ($is_new) {
+                                    echo '<span class="label">New</span>';
+                                }
+
+                                if ($is_sale) {
+                                    echo '<span class="label">Best</span>';
+                                }
+
+                                echo '<ul class="product__hover">';
+                                echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
+                                echo '<li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
+                                echo '</ul>';
+                                echo '</div>';
+                                echo '<div class="product__item__text">';
+                                echo '<h5>' . $product_name . '</h5>';
+                                echo '<h6>Rp.' . number_format($product_price, 0, ',', '.') . '</h6>';
+                                echo '</div>';
+                                echo '</div>';
+                                echo '</div>';
+                            }
+                        } else {
+                            echo "No products found";
+                        }
+                        ?>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
