@@ -1,5 +1,9 @@
 <?php
+include('db.php');
 include('header.php');
+
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -63,84 +67,52 @@ include('header.php');
                 </div>
             </div>
             <div class="row product__filter">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix best-sellers">
-                    <div class="product__item sale">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                            <span class="label">Best</span>
-                            <ul class="product__hover">
-                                <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>Piqué Biker Jacket</h6>
-                            <h5>Rp.50.000</h5>
-                            <div class="product__color__select">
-                                <label class="active black" for="pc-23">
-                                    <input type="radio" id="pc-23">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                    <div class="product__item new">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-12.jpg">
-                            <span class="label">New</span>
-                            <ul class="product__hover">
-                                <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>Multi-pocket Chest Bag</h6>
-                            <h5>Rp.100.000</h5>
-                            <div class="product__color__select">
-                                <label class="active black" for="pc-23">
-                                    <input type="radio" id="pc-23">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix best-sellers">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                            <ul class="product__hover">
-                                <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>Diagonal Textured Cap</h6>
-                            <h5>Rp.50.000</h5>
-                            <div class="product__color__select">
-                                <label class="active black" for="pc-23">
-                                    <input type="radio" id="pc-23">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
-                            <ul class="product__hover">
-                                <li><a href="./shop-details.php"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>
-                                <li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6>Basic Flowing Scarf</h6>
-                            <h5>Rp.100.000</h5>
-                            <div class="product__color__select">
-                                <label class="active black" for="pc-23">
-                                    <input type="radio" id="pc-23">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $product_id = $row['product_id'];
+                        $product_name = $row['name'];
+                        $product_description = $row['description'];
+                        $product_price = $row['price'];
+                        $product_image = $row['image'];
+                        $created_at = $row['created_at'];
+
+                        $time_diff = strtotime('now') - strtotime($created_at);
+                        $is_new = ($time_diff <= 3600);
+
+                        $is_sale = ($product_price > 100000);
+
+                        $new_class = $is_new ? 'new-arrivals' : '';
+                        $sale_class = $is_sale ? 'best-sellers' : '';
+
+                        echo '<div class="col-lg-3 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
+                        echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
+                        echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">';
+
+                        if ($is_new) {
+                            echo '<span class="label">New</span>';
+                        }
+
+                        if ($is_sale) {
+                            echo '<span class="label">Best</span>';
+                        }
+
+                        echo '<ul class="product__hover">';
+                        echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
+                        echo '<li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
+                        echo '</ul>';
+                        echo '</div>';
+                        echo '<div class="product__item__text">';
+                        echo '<h5>' . $product_name . '</h5>';
+                        echo '<h6>Rp.' . number_format($product_price, 0, ',', '.') . '</h6>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "No products found";
+                }
+                ?>
             </div>
         </div>
     </section>
