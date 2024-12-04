@@ -36,6 +36,94 @@
   <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
 </head>
 
+<style>
+    /* body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f9f9f9;
+    } */
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      color: #333;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+    }
+
+    .action-btns button {
+      margin-left: 5px;
+    }
+
+    .btn-detail {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn-edit {
+      background-color: #ffa500;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn-add {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-detail:hover {
+      background-color: #45a049;
+    }
+
+    .btn-edit:hover {
+      background-color: #e68900;
+    }
+
+    .btn-delete:hover {
+      background-color: #d32f2f;
+    }
+
+    .btn-add:hover {
+      background-color: #0069d9;
+    }
+
+    .pagination .page-item .page-link {
+      color: #333;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+    }
+
+    .pagination .page-item:hover .page-link {
+      background-color: #45a049;
+      border-color: #45a049;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .btn-add-container {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    
+  </style>
+
 <body class="g-sidenav-show  bg-gray-100">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
@@ -72,7 +160,7 @@
             <span class="nav-link-text ms-1">Laporan Penjualan</span>
           </a>
         </li>
-        <li class="nav-item">  
+        <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="../pages/data_pengguna.php">
             <i class="material-symbols-rounded opacity-5">person</i>
             <span class="nav-link-text ms-1">Data Pengguna</span>
@@ -88,9 +176,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/sign-Out.html">
+          <a class="nav-link text-dark" href="../pages/sign-in.html">
             <i class="material-symbols-rounded opacity-5">login</i>
-            <span class="nav-link-text ms-1">Sign Out</span>
+            <span class="nav-link-text ms-1">Sign In</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="../pages/sign-up.html">
+            <i class="material-symbols-rounded opacity-5">assignment</i>
+            <span class="nav-link-text ms-1">Sign Up</span>
           </a>
         </li>
       </ul>
@@ -102,7 +196,7 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="dashboard.php">Dashboard</a></li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Data Pengguna</li>
           </ol>
         </nav>
@@ -113,13 +207,281 @@
     <div class="container-fluid py-2">
       <div class="row">
         <div class="ms-3">
-          <h3 class="mb-0 h4 font-weight-bolder">Data Pengguna</h3>
+          <h3 class="mb-0 h4 font-weight-bolder">Dashboard</h3>
+          <p class="mb-4">
+            Check the sales, value and bounce rate by country.
+          </p>
         </div>
         </div>
       </div>
+
+            <!--Button to Add Product-->
+  <div class="btn-add-container" style="text-align: left; margin-bottom: 20px; margin-left: 23px;">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+      <i class="fas fa-plus"></i> Tambah Data Product
+    </button>
+  </div> 
+
+  <!-- Table displaying products -->
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Pengguna</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .table-wrapper {
+      margin: 20px auto;
+      max-width: 90%;
+    }
+    .action-btns .btn {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Pengguna</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .table-wrapper {
+      margin: 20px auto;
+      max-width: 90%;
+    }
+    .action-btns .btn {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="table-wrapper">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>ID Pengguna</th>
+          <th>Nama Pengguna</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>USR-0001</td>
+          <td>Rahmat Hidayat</td>
+          <td>rahmat@example.com</td>
+          <td><span class="badge bg-success">Aktif</span></td>
+          <td class="action-btns">
+            <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
+            <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>USR-0002</td>
+          <td>Siti Nur Aisyah</td>
+          <td>siti@example.com</td>
+          <td><span class="badge bg-warning text-dark">Pending</span></td>
+          <td class="action-btns">
+            <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
+            <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>USR-0003</td>
+          <td>Budi Santoso</td>
+          <td>budi@example.com</td>
+          <td><span class="badge bg-danger">Non-Aktif</span></td>
+          <td class="action-btns">
+            <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
+            <button class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
+
+</body>
+</html>
+  <!-- Modal to Add Product -->
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="addProductModalLabel">Tambah Data Produk</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="productName" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="productName" placeholder="Nama Produk" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="productCategory" class="form-label">Kategori</label>
+            <input type="text" class="form-control" id="productCategory" placeholder="Kategori Produk" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Harga</label>
+            <div class="input-group">
+              <span class="input-group-text">Rp</span>
+              <input type="text" class="form-control" id="productPrice" placeholder="Harga Produk" required>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="productStock" class="form-label">Stok</label>
+            <input type="number" class="form-control" id="productStock" placeholder="Stok Produk" required>
+          </div>
+          
+          <!-- Optional: Add image upload -->
+          <div class="mb-3">
+            <label for="productImage" class="form-label">Foto Produk</label>
+            <input type="file" class="form-control" id="productImage">
+          </div>
+        </form>
+      </div>
+
+       <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-success">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+      <footer class="footer py-4  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                for a better web.
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        
+      </footer>
     </div>
   </main>
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+      <i class="material-symbols-rounded py-2">settings</i>
+    </a>
+    <div class="card shadow-lg">
+      <div class="card-header pb-0 pt-3">
+        <div class="float-start">
+          <h5 class="mt-3 mb-0">Material UI Configurator</h5>
+          <p>See our dashboard options.</p>
+        </div>
+        <div class="float-end mt-4">
+          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <i class="material-symbols-rounded">clear</i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0">
+        <!-- Sidebar Backgrounds -->
+        <div>
+          <h6 class="mb-0">Sidebar Colors</h6>
+        </div>
+        <a href="javascript:void(0)" class="switch-trigger background-color">
+          <div class="badge-colors my-2 text-start">
+            <span class="badge filter bg-gradient-primary" data-color="primary" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-dark active" data-color="dark" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-info" data-color="info" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-success" data-color="success" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-warning" data-color="warning" onclick="sidebarColor(this)"></span>
+            <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
+          </div>
+        </a>
+        <!-- Sidenav Type -->
+        <div class="mt-3">
+          <h6 class="mb-0">Sidenav Type</h6>
+          <p class="text-sm">Choose between different sidenav types.</p>
+        </div>
+        <div class="d-flex">
+          <button class="btn bg-gradient-dark px-3 mb-2" data-class="bg-gradient-dark" onclick="sidebarType(this)">Dark</button>
+          <button class="btn bg-gradient-dark px-3 mb-2 ms-2" data-class="bg-transparent" onclick="sidebarType(this)">Transparent</button>
+          <button class="btn bg-gradient-dark px-3 mb-2  active ms-2" data-class="bg-white" onclick="sidebarType(this)">White</button>
+        </div>
+        <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
+        <!-- Navbar Fixed -->
+        <div class="mt-3 d-flex">
+          <h6 class="mb-0">Navbar Fixed</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed" onclick="navbarFixed(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-3">
+        <div class="mt-2 d-flex">
+          <h6 class="mb-0">Light / Dark</h6>
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+          </div>
+        </div>
+        <hr class="horizontal dark my-sm-4">
+        <a class="btn bg-gradient-info w-100" href="https://www.creative-tim.com/product/material-dashboard-pro">Free Download</a>
+        <a class="btn btn-outline-dark w-100" href="https://www.creative-tim.com/learning-lab/bootstrap/overview/material-dashboard">View documentation</a>
+        <div class="w-100 text-center">
+          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
+          <h6 class="mt-3">Thank you for sharing!</h6>
+          <a href="https://twitter.com/intent/tweet?text=Check%20Material%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fsoft-ui-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/material-dashboard" class="btn btn-dark mb-0 me-2" target="_blank">
+            <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
