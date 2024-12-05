@@ -4,6 +4,7 @@ include('header.php');
 
 $category_filter = '';
 $price_filter = '';
+$size_filter = '';
 
 if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
     $category_filter = " WHERE category_id = " . $_GET['category_id'];
@@ -19,7 +20,11 @@ if (isset($_GET['price']) && preg_match('/^(\d+)-(\d+)$/', $_GET['price'], $matc
     }
 }
 
-$sql = "SELECT * FROM products" . $category_filter . $price_filter;
+if (isset($_GET['size']) && in_array($_GET['size'], ['S', 'M', 'L', 'XL'])) {
+    $size_filter = " AND size = '" . $_GET['size'] . "'";
+}
+
+$sql = "SELECT * FROM products" . $category_filter . $price_filter . $size_filter;
 $result = $conn->query($sql);
 
 $sql_categories = "SELECT * FROM categories";
@@ -60,10 +65,10 @@ $result_categories = $conn->query($sql_categories);
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text" style="font-family: 'Poppins', sans-serif;">
-                        <h4>Shop</h4>
+                        <h4>Belanja</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.php">Home</a>
-                            <span>Shop</span>
+                            <a href="./index.php">Beranda</a>
+                            <span>Belanja</span>
                         </div>
                     </div>
                 </div>
@@ -82,7 +87,7 @@ $result_categories = $conn->query($sql_categories);
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                        <a data-toggle="collapse" data-target="#collapseOne">Kategori</a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
@@ -106,7 +111,7 @@ $result_categories = $conn->query($sql_categories);
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">Price</a>
+                                        <a data-toggle="collapse" data-target="#collapseTwo">Harga</a>
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
@@ -122,22 +127,22 @@ $result_categories = $conn->query($sql_categories);
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseThree">Size</a>
+                                        <a data-toggle="collapse" data-target="#collapseThree">Ukuran</a>
                                     </div>
                                     <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
-                                                <label for="sm">s
-                                                    <input type="radio" id="sm">
+                                                <label for="sm">S
+                                                    <input type="radio" id="sm" name="size" value="S" <?php echo isset($_GET['size']) && $_GET['size'] == 'S' ? 'checked' : ''; ?>>
                                                 </label>
-                                                <label for="md">m
-                                                    <input type="radio" id="md">
+                                                <label for="md">M
+                                                    <input type="radio" id="md" name="size" value="M" <?php echo isset($_GET['size']) && $_GET['size'] == 'M' ? 'checked' : ''; ?>>
                                                 </label>
-                                                <label for="xl">xl
-                                                    <input type="radio" id="xl">
+                                                <label for="lg">L
+                                                    <input type="radio" id="lg" name="size" value="L" <?php echo isset($_GET['size']) && $_GET['size'] == 'L' ? 'checked' : ''; ?>>
                                                 </label>
-                                                <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
+                                                <label for="xl">XL
+                                                    <input type="radio" id="xl" name="size" value="XL" <?php echo isset($_GET['size']) && $_GET['size'] == 'XL' ? 'checked' : ''; ?>>
                                                 </label>
                                             </div>
                                         </div>
