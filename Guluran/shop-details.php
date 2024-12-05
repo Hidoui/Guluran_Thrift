@@ -1,5 +1,26 @@
 <?php
+include('db.php');
 include('header.php');
+
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $product_id = $_GET['id'];
+
+    $sql = "SELECT p.*, c.category_name FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.category_id 
+        WHERE p.product_id = $product_id";
+
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $product = $result->fetch_assoc();
+    } else {
+        echo "Product not found!";
+        exit;
+    }
+} else {
+    echo "Invalid product ID!";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,11 +57,11 @@ include('header.php');
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text" style="font-family: 'Poppins', sans-serif;">
-                        <h4>Shop</h4>
+                        <h4>Belanja</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
-                            <span>Product Details</span>
+                            <a href="./index.php">Beranda</a>
+                            <a href="./shop.php">Belanja</a>
+                            <span>Detail Produk</span>
                         </div>
                     </div>
                 </div>
@@ -57,15 +78,15 @@ include('header.php');
                     <div class="col-lg-3 col-md-3">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                            <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                                    <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-3.png">
+                                    <div class="product__thumb__pic set-bg"
+                                        data-setbg="img/product/<?php echo $product['image']; ?>">
                                     </div>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                                    <div class="product__thumb__pic set-bg" data-setbg="img/shop-details/thumb-4.png">
+                                    <div class="product__thumb__pic set-bg" data-setbg="img/product/<?php echo $product['images']; ?>">
                                         <i class="fa fa-play"></i>
                                     </div>
                                 </a>
@@ -76,12 +97,12 @@ include('header.php');
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img src="img/shop-details/product-big.png" alt="">
+                                    <img src="img/product/<?php echo $product['image']; ?>" alt="">
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img src="img/shop-details/product-big-4.png" alt="">
+                                    <img src="img/product/<?php echo $product['images']; ?>" alt="">
                                     <a href="https://www.youtube.com/watch?v=8PJ3_p7VqHw&list=RD8PJ3_p7VqHw&start_radio=1" class="video-popup"><i class="fa fa-play"></i></a>
                                 </div>
                             </div>
@@ -95,39 +116,31 @@ include('header.php');
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <div class="product__details__text">
-                            <h4>Hooded Brown</h4>
-                            <p>Coat with quilted lining and an adjustable hood. Featuring long sleeves with adjustable
-                                cuff tabs, adjustable asymmetric hem with elastic side tabs and a front zip fastening
-                                with placket.</p>
-                            <h3>Rp.200.000</h3>
+                            <h3><?php echo $product['name']; ?></h3>
+                            <h4>Rp.<?php echo number_format($product['price'], 2, ',', '.'); ?></h4>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
-                                    <label for="sm">s
-                                        <input type="radio" id="sm">
-                                    </label>
-                                    <label for="md">m
-                                        <input type="radio" id="md">
-                                    </label>
-                                    <label for="xl">xl
-                                        <input type="radio" id="xl">
-                                    </label>
-                                    <label for="xxl">xxl
-                                        <input type="radio" id="xxl">
-                                    </label>
-                                </div>
-
-                                <div class="product__details__option__color">
-                                    <span>Color:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
-                                    <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
+                                    <?php if ($product['size'] == 'S') { ?>
+                                        <label for="sm">S
+                                            <input type="radio" id="sm" checked disabled>
+                                        </label>
+                                    <?php } ?>
+                                    <?php if ($product['size'] == 'M') { ?>
+                                        <label for="md">M
+                                            <input type="radio" id="md" checked disabled>
+                                        </label>
+                                    <?php } ?>
+                                    <?php if ($product['size'] == 'L') { ?>
+                                        <label for="lg">L
+                                            <input type="radio" id="lg" checked disabled>
+                                        </label>
+                                    <?php } ?>
+                                    <?php if ($product['size'] == 'XL') { ?>
+                                        <label for="xl">XL
+                                            <input type="radio" id="xl" checked disabled>
+                                        </label>
+                                    <?php } ?>
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
@@ -136,12 +149,12 @@ include('header.php');
                                         <input type="text" value="1">
                                     </div>
                                 </div>
-                                <a href="#" class="primary-btn">add to cart</a>
+                                <a href="#" class="primary-btn">Masukkan Keranjang</a>
                             </div>
                             <div class="product__details__last__option">
                                 <ul>
-                                    <li><span>SKU:</span> 160205</li>
-                                    <li><span>Categories:</span> Clothes</li>
+                                    <li><span>SKU:</span> <?php echo $product['product_id']; ?></li>
+                                    <li><span>Category:</span> <?php echo $product['category_name']; ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -153,37 +166,15 @@ include('header.php');
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-5"
-                                        role="tab">Description</a>
+                                        role="tab">Deskripsi</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                     <div class="product__details__tab__content">
                                         <div class="product__details__tab__content__item">
-                                            <h5>Products Infomation</h5>
-                                            <p>A Pocket PC is a handheld computer, which features many of the same
-                                                capabilities as a modern PC. These handy little devices allow
-                                                individuals to retrieve and store e-mail messages, create a contact
-                                                file, coordinate appointments, surf the internet, exchange text messages
-                                                and more. Every product that is labeled as a Pocket PC must be
-                                                accompanied with specific software to operate the unit and must feature
-                                                a touchscreen and touchpad.</p>
-                                            <p>As is the case with any new technology product, the cost of a Pocket PC
-                                                was substantial during it’s early release. For approximately $700.00,
-                                                consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                                                These days, customers are finding that prices have become much more
-                                                reasonable now that the newness is wearing off. For approximately
-                                                $350.00, a new Pocket PC can now be purchased.</p>
-                                        </div>
-                                        <div class="product__details__tab__content__item">
-                                            <h5>Material used</h5>
-                                            <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                                                from synthetic materials, not natural like wool. Polyester suits become
-                                                creased easily and are known for not being breathable. Polyester suits
-                                                tend to have a shine to them compared to wool and cotton suits, this can
-                                                make the suit look cheap. The texture of velvet is luxurious and
-                                                breathable. Velvet is a great choice for dinner party jacket and can be
-                                                worn all year round.</p>
+                                            <h5>Informasi Produk</h5>
+                                            <p><?php echo $product['description']; ?></p>
                                         </div>
                                     </div>
                                 </div>
