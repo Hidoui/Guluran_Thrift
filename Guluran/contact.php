@@ -43,14 +43,16 @@ include('header.php');
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__text">
                         <div class="section-title">
-                            <span>Information</span>
-                            <h2>Contact Us</h2>
-                            <p>Kontak ... </p>
+                            <h2>Kontak</h2>
+                            <p>Jika memiliki pertanyaan atau membutuhkan bantuan lebih lanjut, jangan ragu untuk menghubungi kami.</p>
                         </div>
                         <ul>
                             <li>
-                                <h4>Indonesia</h4>
-                                <p>Jalan ... <br />+62 857 4605 4929</p>
+                                <h4>Alamat Kami</h4>
+                                <p>Jl. Letnan Suprayitno, Krajan, Kecamatan Arjasa, Kabupaten Jember, Jawa Timur 68191, Indonesia.</p>
+                                <br>
+                                <h4>Hubungi Kami</h4>
+                                <p>Telepon: +62 857-4605-4929 <br />Email: support@guluranthrift.com</p>
                             </li>
                         </ul>
                     </div>
@@ -60,14 +62,14 @@ include('header.php');
                         <form action="#">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input type="text" placeholder="Name">
+                                    <input type="text" placeholder="Nama">
                                 </div>
                                 <div class="col-lg-6">
                                     <input type="text" placeholder="Email">
                                 </div>
                                 <div class="col-lg-12">
-                                    <textarea placeholder="Message"></textarea>
-                                    <button type="submit" class="site-btn">Send Message</button>
+                                    <textarea placeholder="Pesan"></textarea>
+                                    <button type="submit" class="site-btn">Kirim</button>
                                 </div>
                             </div>
                         </form>
