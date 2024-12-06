@@ -227,7 +227,7 @@
             <span class="nav-link-text ms-1">Sign Out</span>
           </a>
         </li>
-      </ul>
+       </ul>
     </div>
   </aside>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -268,6 +268,7 @@
           <th>ID Produk</th>
           <th>Nama Produk</th>
           <th>Kategori</th>
+          <th>Size</th>
           <th>Harga</th>
           <th>Stok</th>
           <th>Aksi</th>
@@ -280,50 +281,9 @@
           <td>ID-00016</td>
           <td>Smartphone</td>
           <td>Elektronik</td>
+          <td>L</td>  
           <td>Rp 5.000.000</td>
           <td>50</td>
-          <td class="action-btns">
-            <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
-            <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
-            <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td><img src="https://via.placeholder.com/50" alt="Produk 2" class="rounded-circle"></td>
-          <td>ID-00015</td>
-          <td>Headphones</td>
-          <td>Elektronik</td>
-          <td>Rp 1.500.000</td>
-          <td>100</td>
-          <td class="action-btns">
-            <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
-            <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
-            <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td><img src="https://via.placeholder.com/50" alt="Produk 3" class="rounded-circle"></td>
-          <td>ID-00014</td>
-          <td>Laptop</td>
-          <td>Elektronik</td>
-          <td>Rp 10.000.000</td>
-          <td>30</td>
-          <td class="action-btns">
-            <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
-            <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
-            <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td><img src="https://via.placeholder.com/50" alt="Produk 4" class="rounded-circle"></td>
-          <td>ID-00013</td>
-          <td>Smartwatch</td>
-          <td>Elektronik</td>
-          <td>Rp 2.000.000</td>
-          <td>75</td>
           <td class="action-btns">
             <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
             <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>

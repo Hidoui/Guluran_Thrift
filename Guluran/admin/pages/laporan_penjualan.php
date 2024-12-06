@@ -330,15 +330,6 @@
     </div>
   </div>
 </div>
-
-<!-- Add custom styles -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-success" id="saveProductBtn">Simpan</button>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
   </main>
  
