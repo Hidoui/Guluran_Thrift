@@ -2,23 +2,78 @@
 include('config/db.php');
 include('header.php');
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: sign-in.php');
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+
+if (isset($_POST['add_to_cart'])) {
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    $check_cart_sql = "SELECT cart_id FROM carts WHERE user_id = ?";
+    $stmt = $conn->prepare($check_cart_sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $cart = $result->fetch_assoc();
+        $cart_id = $cart['cart_id'];
+
+        $check_item_sql = "SELECT cart_item_id FROM cart_items WHERE cart_id = ? AND product_id = ?";
+        $stmt = $conn->prepare($check_item_sql);
+        $stmt->bind_param("ii", $cart_id, $product_id);
+        $stmt->execute();
+        $item_result = $stmt->get_result();
+
+        if ($item_result->num_rows > 0) {
+            $update_sql = "UPDATE cart_items SET quantity = quantity + ? WHERE cart_id = ? AND product_id = ?";
+            $stmt = $conn->prepare($update_sql);
+            $stmt->bind_param("iii", $quantity, $cart_id, $product_id);
+            $stmt->execute();
+        } else {
+            $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($insert_sql);
+            $stmt->bind_param("iii", $cart_id, $product_id, $quantity);
+            $stmt->execute();
+        }
+    } else {
+        $create_cart_sql = "INSERT INTO carts (user_id) VALUES (?)";
+        $stmt = $conn->prepare($create_cart_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $cart_id = $stmt->insert_id;
+
+        $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($insert_sql);
+        $stmt->bind_param("iii", $cart_id, $product_id, $quantity);
+        $stmt->execute();
+    }
+
+    header('Location: shopping-cart.php');
+    exit;
+}
+
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $product_id = $_GET['id'];
 
     $sql = "SELECT p.*, c.category_name FROM products p 
-        LEFT JOIN categories c ON p.category_id = c.category_id 
-        WHERE p.product_id = $product_id";
+            LEFT JOIN categories c ON p.category_id = c.category_id 
+            WHERE p.product_id = $product_id";
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         $product = $result->fetch_assoc();
     } else {
-        echo "Product not found!";
+        echo "Produk tidak ditemukan!";
         exit;
     }
 } else {
-    echo "Invalid product ID!";
+    echo "ID produk tidak valid!";
     exit;
 }
 ?>
@@ -146,10 +201,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <div class="product__details__cart__option">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input type="text" value="1">
+                                        <input type="number" name="quantity" value="1" max="1" min="0">
                                     </div>
                                 </div>
-                                <a href="#" class="primary-btn">Masukkan Keranjang</a>
+                                <form method="POST" action="">
+                                    <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" name="add_to_cart" class="primary-btn">Masukkan Keranjang</button>
+                                </form>
                             </div>
                             <div class="product__details__last__option">
                                 <ul>
