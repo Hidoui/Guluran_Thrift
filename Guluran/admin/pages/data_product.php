@@ -1,17 +1,8 @@
-<!--
-=========================================================
-* Material Dashboard 3 - v3.2.0
-=========================================================
+<?php
+  session_start();
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+  include "../../config/db.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -275,21 +266,33 @@
         </tr>
       </thead>
       <tbody>
+        <?php
+          $sql = "SELECT * FROM products";
+          $hasil = $conn->query($sql);
+          if($hasil->num_rows > 0) {
+            $i = 1;
+            while($row = $hasil->fetch_assoc()) {
+        ?>
         <tr>
-          <td>1</td>
+          <td><?= $i?></td>
           <td><img src="https://via.placeholder.com/50" alt="Produk 1" class="rounded-circle"></td>
-          <td>ID-00016</td>
-          <td>Smartphone</td>
-          <td>Elektronik</td>
-          <td>L</td>  
-          <td>Rp 5.000.000</td>
-          <td>50</td>
+          <td><?= $row['product_id']?></td>
+          <td><?= $row['name']?></td>
+          <td><?= $row['category_id']?></td>
+          <td><?= $row['size']?></td>  
+          <td><?= $row['price']?></td>
+          <td><?= $row['stock']?></td>
           <td class="action-btns">
             <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
             <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
             <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
           </td>
         </tr>
+        <?php 
+            $i++;
+            }
+          }
+        ?>
         <!-- Add more rows as needed -->
       </tbody>
     </table>

@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('config/db.php');
 include('header.php');
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {

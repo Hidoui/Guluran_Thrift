@@ -1,17 +1,8 @@
-<!--
-=========================================================
-* Material Dashboard 3 - v3.2.0
-=========================================================
+<?php
+  session_start();
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+  include "../../config/db.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -271,23 +262,35 @@
         </tr>
       </thead>
       <tbody>
+      <?php
+          $sql = "SELECT * FROM laporan_penjualan lp INNER JOIN products pr ON lp.product_id = pr.product_id INNER JOIN users ur ON lp.user_id = ur.user_id INNER JOIN categories cs ON pr.category_id = cs.category_id;";
+          $hasil = $conn->query($sql);
+          if($hasil->num_rows > 0) {
+            $i = 1;
+            while($row = $hasil->fetch_assoc()) {
+        ?>
         <tr>
-          <td>1</td>
-          <td><img src="https://via.placeholder.com/50" alt="Produk 1" class="rounded-circle"></td>
-          <td>ID-00016</td>
-          <td>Smartphone</td>
-          <td>Elektronik</td>
-          <td>Rp 5.000.000</td>
-          <td>50</td>
+          <td><?= $i?></td>
+          <td><?= $row['order_id']?></td>
+          <td><?= $row['sale_date']?></td>
+          <td><?= $row['name']?></td>
+          <td><?= $row['category_name']?></td>
+          <td><?= $row['total_price']?></td>
+          <td><?= $row['full_name']?></td>
           <td>Selesai</td>
           <td class="action-btns">
             <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
             <td class="action-btns">
-            <button class="btn btn-detail" data-bs-toggle="modal" data-bs-target="#editConfirmModal"><i class="fas fa-edit"></i> Ubah</button>
+            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editConfirmModal"><i class="fas fa-edit"></i> Ubah</button>
             <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i> Hapus</button>
           </td>
           </td>
         </tr>
+        <?php 
+            $i++;
+            }
+          }
+        ?>
         <!-- Add more rows as needed -->
       </tbody>
     </table>

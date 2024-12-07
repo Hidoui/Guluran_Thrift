@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('config/db.php');
 include('header.php');
 
 $category_filter = '';
