@@ -136,24 +136,19 @@ if ($result->num_rows > 0) {
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn">
-                                <a href="./shop.php">Continue Shopping</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn update__btn">
-                                <a href="./shopping-cart.php"> Update Cart</a>
+                                <a href="./shop.php">Lanjut Berbelanja</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="cart__total">
-                        <h6>Cart total</h6>
-                        <ul>
+                <div class="col-lg-4 col-md-6">
+                    <div class="checkout__order">
+                        <h4 class="order__title">Pesanan Anda</h4>
+                        <ul class="checkout__total__all">
                             <li>Subtotal <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
                             <li>Total <span>Rp. <?php echo number_format($total * 1.1, 0, ',', '.'); ?></span></li>
                         </ul>
-                        <a href="./checkout.php" class="primary-btn">Proceed to checkout</a>
+                        <a href="./checkout.php" class="primary-btn">Lanjut Pembayaran</a>
                     </div>
                 </div>
             </div>
