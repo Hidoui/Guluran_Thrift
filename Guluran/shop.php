@@ -2,6 +2,13 @@
 include('config/db.php');
 include('header.php');
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: sign-in.php');
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+
 $category_filter = '';
 $price_filter = '';
 $size_filter = '';
@@ -29,6 +36,36 @@ $result = $conn->query($sql);
 
 $sql_categories = "SELECT * FROM categories";
 $result_categories = $conn->query($sql_categories);
+
+if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
+    $product_id = $_GET['add_to_cart'];
+
+    $check_sql = "SELECT ci.cart_item_id FROM cart_items ci
+                  JOIN carts c ON ci.cart_id = c.cart_id
+                  WHERE c.user_id = ? AND ci.product_id = ?";
+    $stmt = $conn->prepare($check_sql);
+    $stmt->bind_param("ii", $user_id, $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $cart_item = $result->fetch_assoc();
+        $cart_item_id = $cart_item['cart_item_id'];
+        $update_sql = "UPDATE cart_items SET quantity = quantity + 1 WHERE cart_item_id = ?";
+        $update_stmt = $conn->prepare($update_sql);
+        $update_stmt->bind_param("i", $cart_item_id);
+        $update_stmt->execute();
+    } else {
+        $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) 
+                       VALUES ((SELECT cart_id FROM carts WHERE user_id = ?), ?, 1)";
+        $insert_stmt = $conn->prepare($insert_sql);
+        $insert_stmt->bind_param("ii", $user_id, $product_id);
+        $insert_stmt->execute();
+    }
+
+    header('Location: shopping-cart.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -186,7 +223,7 @@ $result_categories = $conn->query($sql_categories);
 
                                 echo '<ul class="product__hover">';
                                 echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
-                                echo '<li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
+                                echo '<li><a href="?add_to_cart=' . $product_id . '"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
                                 echo '</ul>';
                                 echo '</div>';
                                 echo '<div class="product__item__text">';
