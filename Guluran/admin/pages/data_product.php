@@ -256,7 +256,6 @@
         <tr>
           <th>No.</th>
           <th>Foto</th>
-          <th>ID Produk</th>
           <th>Nama Produk</th>
           <th>Kategori</th>
           <th>Size</th>
@@ -267,7 +266,7 @@
       </thead>
       <tbody>
         <?php
-          $sql = "SELECT * FROM products";
+          $sql = "SELECT * FROM products pr INNER JOIN categories cr ON pr.category_id = cr.category_id;";
           $hasil = $conn->query($sql);
           if($hasil->num_rows > 0) {
             $i = 1;
@@ -275,10 +274,9 @@
         ?>
         <tr>
           <td><?= $i?></td>
-          <td><img src="https://via.placeholder.com/50" alt="Produk 1" class="rounded-circle"></td>
-          <td><?= $row['product_id']?></td>
+          <td><img src="data:image/jpg;base64,<?= base64_encode($row['image'])?>" width="150" alt="Produk 1" class=""></td>
           <td><?= $row['name']?></td>
-          <td><?= $row['category_id']?></td>
+          <td><?= $row['category_name']?></td>
           <td><?= $row['size']?></td>  
           <td><?= $row['price']?></td>
           <td><?= $row['stock']?></td>
