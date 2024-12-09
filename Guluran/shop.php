@@ -3,11 +3,10 @@ include('config/db.php');
 include('header.php');
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: sign-in.php');
-    exit;
+    $user_id = null;
+} else {
+    $user_id = $_SESSION['user_id'];
 }
-
-$user_id = $_SESSION['user_id'];
 
 $category_filter = '';
 $price_filter = '';
@@ -38,6 +37,11 @@ $sql_categories = "SELECT * FROM categories";
 $result_categories = $conn->query($sql_categories);
 
 if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
+    if (!$user_id) {
+        header('Location: sign-in.php');
+        exit;
+    }
+
     $product_id = $_GET['add_to_cart'];
 
     $check_sql = "SELECT ci.cart_item_id FROM cart_items ci
@@ -211,21 +215,14 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
 
                                 echo '<div class="col-lg-4 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
                                 echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
-                                echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">';
-
-                                if ($is_new) {
-                                    echo '<span class="label">New</span>';
-                                }
-
-                                if ($is_sale) {
-                                    echo '<span class="label">Best</span>';
-                                }
-
-                                echo '<ul class="product__hover">';
-                                echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
-                                echo '<li><a href="?add_to_cart=' . $product_id . '"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
-                                echo '</ul>';
-                                echo '</div>';
+                                echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">' .
+                                    ($is_new ? '<span class="label">New</span>' : '') .
+                                    ($is_sale ? '<span class="label">Best</span>' : '') .
+                                    '<ul class="product__hover">' .
+                                    '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>' .
+                                    '<li><a href="?add_to_cart=' . $product_id . '"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>' .
+                                    '</ul>' .
+                                    '</div>';
                                 echo '<div class="product__item__text">';
                                 echo '<h5>' . $product_name . '</h5>';
                                 echo '<h6>Rp.' . number_format($product_price, 0, ',', '.') . '</h6>';
