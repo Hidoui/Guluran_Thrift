@@ -38,9 +38,9 @@ include('header.php');
                     <div class="breadcrumb__text">
                         <h4>Check Out</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.php">Home</a>
-                            <a href="./shop.php">Shop</a>
-                            <a href="./shopping-cart.php">Shopping Cart</a>
+                            <a href="./index.php">Beranda</a>
+                            <a href="./shop.php">Belanja</a>
+                            <a href="./shopping-cart.php">Keranjang</a>
                             <span>Check Out</span>
                         </div>
                     </div>
@@ -57,20 +57,10 @@ include('header.php');
                 <form action="#">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <h6 class="checkout__title">Billing Details</h6>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Nama Depan<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Nama Belakang<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
+                            <h6 class="checkout__title">Detail</h6>
+                            <div class="checkout__input">
+                                <p>Nama Lengkap<span>*</span></p>
+                                <input type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Provinsi<span>*</span></p>
@@ -93,19 +83,9 @@ include('header.php');
                                 <input type="text" placeholder="Street Address" class="checkout__input__add">
                                 <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Email<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
+                            <div class="checkout__input">
+                                <p>No. Telepon<span>*</span></p>
+                                <input type="text">
                             </div>
                             <div class="checkout__input">
                                 <p>Pesan</p>
@@ -116,14 +96,13 @@ include('header.php');
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
                                 <h4 class="order__title">Pesanan Anda</h4>
-                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <div class="checkout__order__products">Produk <span>Harga</span></div>
                                 <ul class="checkout__total__products">
-                                    <li>01. Jaket Hoodie <span>Rp.50.000</span></li>
-                                    <li>02. Baju Polo <span>Rp.100.000</span></li>
+                                    <li>Celana Slim <span>Rp.100.000</span></li>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Subtotal <span>Rp.150.000</span></li>
-                                    <li>Total <span>Rp.150.000</span></li>
+                                    <li>Subtotal <span>Rp.100.000</span></li>
+                                    <li>Total <span>Rp.110.000</span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
