@@ -164,8 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <?php } ?>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Subtotal <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
-                                    <li>Total <span>Rp. <?php echo number_format($total * 1.1, 0, ',', '.'); ?></span></li>
+                                    <li>Total <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
