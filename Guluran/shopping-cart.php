@@ -122,7 +122,6 @@ if ($result->num_rows > 0) {
                                     <th>Produk</th>
                                     <th>Jumlah</th>
                                     <th>Harga</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,7 +143,7 @@ if ($result->num_rows > 0) {
                                         <td class="quantity__item">
                                             <div class="quantity">
                                                 <div class="pro-qty-2">
-                                                    <input type="text" value="<?php echo $item['quantity']; ?>">
+                                                    <span><?php echo $item['quantity']; ?></span>
                                                 </div>
                                             </div>
                                         </td>
