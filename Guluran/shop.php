@@ -44,13 +44,30 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
 
     $product_id = $_GET['add_to_cart'];
 
+    $check_cart_sql = "SELECT cart_id FROM carts WHERE user_id = ?";
+    $check_cart_stmt = $conn->prepare($check_cart_sql);
+    $check_cart_stmt->bind_param("i", $user_id);
+    $check_cart_stmt->execute();
+    $cart_result = $check_cart_stmt->get_result();
+
+    if ($cart_result->num_rows === 0) {
+        $insert_cart_sql = "INSERT INTO carts (user_id) VALUES (?)";
+        $insert_cart_stmt = $conn->prepare($insert_cart_sql);
+        $insert_cart_stmt->bind_param("i", $user_id);
+        $insert_cart_stmt->execute();
+
+        $cart_id = $conn->insert_id;
+    } else {
+        $cart_row = $cart_result->fetch_assoc();
+        $cart_id = $cart_row['cart_id'];
+    }
+
     $check_sql = "SELECT ci.cart_item_id FROM cart_items ci
-                  JOIN carts c ON ci.cart_id = c.cart_id
-                  WHERE c.user_id = ? AND ci.product_id = ?";
-    $stmt = $conn->prepare($check_sql);
-    $stmt->bind_param("ii", $user_id, $product_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+                  WHERE ci.cart_id = ? AND ci.product_id = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("ii", $cart_id, $product_id);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
 
     if ($result->num_rows > 0) {
         $cart_item = $result->fetch_assoc();
@@ -61,9 +78,9 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
         $update_stmt->execute();
     } else {
         $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) 
-                       VALUES ((SELECT cart_id FROM carts WHERE user_id = ?), ?, 1)";
+                       VALUES (?, ?, 1)";
         $insert_stmt = $conn->prepare($insert_sql);
-        $insert_stmt->bind_param("ii", $user_id, $product_id);
+        $insert_stmt->bind_param("ii", $cart_id, $product_id);
         $insert_stmt->execute();
     }
 
