@@ -575,7 +575,7 @@ ol {
 
 .hero__slider.owl-carousel .owl-nav button {
 	font-size: 36px;
-	color: #333333;
+	color: #111111;
 	position: absolute;
 	left: 75px;
 	top: 50%;
@@ -590,7 +590,8 @@ ol {
 
 .hero__items {
 	height: 800px;
-	padding-top: 230px;
+	padding-top: 225px;
+	padding-bottom: 45px;
 }
 
 .hero__text h6 {
