@@ -196,6 +196,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                             <input type="radio" id="xl" checked disabled>
                                         </label>
                                     <?php } ?>
+                                    <span>Stok:</span>
+                                    <?php
+                                    $stock = $product['stock'];
+                                    for ($i = 1; $i <= $stock; $i++) {
+                                        echo '<label for="qty' . $i . '">' . $i . '<input type="radio" id="qty' . $i . '" name="quantity" value="' . $i . '" disabled></label>';
+                                    }
+                                    ?>
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
