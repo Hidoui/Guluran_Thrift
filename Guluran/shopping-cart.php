@@ -61,6 +61,8 @@ if ($result->num_rows > 0) {
 } else {
     $items = [];
 }
+
+$cart_empty = count($items) == 0;
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +172,9 @@ if ($result->num_rows > 0) {
                         <ul class="checkout__total__all">
                             <li>Total <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
                         </ul>
-                        <a href="./checkout.php" class="primary-btn">Lanjut Pembayaran</a>
+                        <a href="<?php echo $cart_empty ? '#' : './checkout.php'; ?>"
+                            class="site-btn" id="checkout-button"
+                            <?php echo $cart_empty ? 'onclick="showPopup()"' : ''; ?>>Lanjut Pembayaran</a>
                     </div>
                 </div>
             </div>
@@ -193,6 +197,13 @@ if ($result->num_rows > 0) {
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+        function showPopup() {
+            alert('Keranjang kosong. Silakan tambah produk terlebih dahulu.');
+            window.location.href = 'shopping-cart.php';
+        }
+    </script>
 </body>
 
 </html>
