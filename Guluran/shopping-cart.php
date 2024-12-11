@@ -17,6 +17,30 @@ if (isset($_GET['delete'])) {
     $stmt->bind_param("ii", $cart_item_id, $user_id);
 
     if ($stmt->execute()) {
+        $check_cart_sql = "SELECT COUNT(*) FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = ?)";
+        $check_stmt = $conn->prepare($check_cart_sql);
+        $check_stmt->bind_param("i", $user_id);
+
+        if ($stmt->execute()) {
+            $check_cart_sql = "SELECT COUNT(*) FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = ?)";
+            $check_stmt = $conn->prepare($check_cart_sql);
+            $check_stmt->bind_param("i", $user_id);
+
+            if ($check_stmt->execute()) {
+                $check_stmt->bind_result($cart_count);
+                $check_stmt->fetch();
+
+                $check_stmt->close();
+
+                if ($cart_count == 0) {
+                    $delete_cart_sql = "DELETE FROM carts WHERE user_id = ?";
+                    $delete_cart_stmt = $conn->prepare($delete_cart_sql);
+                    $delete_cart_stmt->bind_param("i", $user_id);
+                    $delete_cart_stmt->execute();
+                    $delete_cart_stmt->close();
+                }
+            }
+        }
         header('Location: shopping-cart.php');
         exit;
     } else {
@@ -97,7 +121,7 @@ if ($result->num_rows > 0) {
                                 <tr>
                                     <th>Produk</th>
                                     <th>Jumlah</th>
-                                    <th>Total</th>
+                                    <th>Harga</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -145,8 +169,7 @@ if ($result->num_rows > 0) {
                     <div class="checkout__order">
                         <h4 class="order__title">Pesanan Anda</h4>
                         <ul class="checkout__total__all">
-                            <li>Subtotal <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
-                            <li>Total <span>Rp. <?php echo number_format($total * 1.1, 0, ',', '.'); ?></span></li>
+                            <li>Total <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
                         </ul>
                         <a href="./checkout.php" class="primary-btn">Lanjut Pembayaran</a>
                     </div>
