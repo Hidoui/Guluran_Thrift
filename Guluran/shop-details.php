@@ -206,11 +206,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="number" name="quantity" value="1" max="1" min="0">
-                                    </div>
-                                </div>
                                 <form method="POST" action="">
                                     <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
                                     <input type="hidden" name="quantity" value="1">
