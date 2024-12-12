@@ -265,6 +265,7 @@ ini_set('display_errors', 1);
           <th>No.</th>
           <th>Foto</th>
           <th>Nama Produk</th>
+          <th>description</th>
           <th>Kategori</th>
           <th>Size</th>
           <th>Harga</th>
@@ -284,12 +285,12 @@ ini_set('display_errors', 1);
           <td><?= $i?></td>
           <td><img src="uploads/<?= $row['image'] ?>" width="150" alt="" class=""></td>
           <td><?= $row['name']?></td>
+          <td><?= $row['description']?></td>
           <td><?= $row['category_name']?></td>
           <td><?= $row['size']?></td>  
           <td><?= $row['price']?></td>
           <td><?= $row['stock']?></td>
           <td class="action-btns">
-            <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
             <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
             <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
           </td>
@@ -319,6 +320,10 @@ ini_set('display_errors', 1);
       <input type="text" class="form-control custom-input" id="productName" placeholder="Masukkan Nama Produk" required>
     </div>
     <div class="mb-3">
+      <label for="productdescription" class="form-label custom-label">description</label>
+      <input type="text" class="form-control custom-input" id="productdescription" placeholder="Masukkan description" required>
+    </div>
+    <div class="mb-3">
       <label for="productCategory" class="form-label custom-label">Kategori</label>
       <input type="text" class="form-control custom-input" id="productCategory" placeholder="Masukkan Kategori Produk" required>
     </div>
@@ -332,7 +337,7 @@ ini_set('display_errors', 1);
     </div>
     <div class="mb-3">
       <label for="productStock" class="form-label custom-label">Size</label>
-      <input type="number" class="form-control custom-input" id="size" placeholder="Masukkan Size" required>
+      <input type="text" class="form-control custom-input" id="size" placeholder="Masukkan Size" required>
     </div>
     <div class="mb-3">
       <label for="productImage" class="form-label custom-label">Foto Produk</label>
@@ -371,6 +376,7 @@ ini_set('display_errors', 1);
     // Ambil data dari form
     const productData = {
       name: document.getElementById('productName').value,
+      description: document.getElementById('productdescription').value,
       category: document.getElementById('productCategory').value,
       price: document.getElementById('productPrice').value,
       stock: document.getElementById('productStock').value,
@@ -381,6 +387,7 @@ ini_set('display_errors', 1);
     // Buat form data untuk mengirim file gambar
     const formData = new FormData();
     formData.append('name', productData.name);
+    formData.append('description', productData.description);
     formData.append('category', productData.category);
     formData.append('price', productData.price);
     formData.append('stock', productData.stock);
