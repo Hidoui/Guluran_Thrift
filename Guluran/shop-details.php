@@ -30,10 +30,7 @@ if (isset($_POST['add_to_cart'])) {
         $item_result = $stmt->get_result();
 
         if ($item_result->num_rows > 0) {
-            $update_sql = "UPDATE cart_items SET quantity = quantity + ? WHERE cart_id = ? AND product_id = ?";
-            $stmt = $conn->prepare($update_sql);
-            $stmt->bind_param("iii", $quantity, $cart_id, $product_id);
-            $stmt->execute();
+            $product_exists = true;
         } else {
             $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($insert_sql);
@@ -51,6 +48,11 @@ if (isset($_POST['add_to_cart'])) {
         $stmt = $conn->prepare($insert_sql);
         $stmt->bind_param("iii", $cart_id, $product_id, $quantity);
         $stmt->execute();
+    }
+
+    if (isset($product_exists) && $product_exists) {
+        header('Location: shop-details.php?id=' . $product_id . '&exists=true');
+        exit;
     }
 
     header('Location: shopping-cart.php');
