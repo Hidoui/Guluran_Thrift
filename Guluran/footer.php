@@ -20,8 +20,8 @@
                         </div>
                         <p>Barang berkualitas dengan harga yang lebih terjangkau.</p>
                         <div class="hero__social">
-                            <a href="https://www.instagram.com/kamumautaguluran"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/kamumautaguluran" target="_blank"><i class="fa fa-instagram"></i></a>
+                            <a href="https://wa.me/6285746054929" target="_blank"><i class="fa fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
