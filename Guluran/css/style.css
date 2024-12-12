@@ -1836,18 +1836,6 @@ ol {
 	width: 175px;
 }
 
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 {
-	width: 80px;
-}
-
-.shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 input {
-	width: 50px;
-	border: none;
-	text-align: center;
-	color: #111111;
-	font-size: 16px;
-}
-
 .shopping__cart__table table tbody tr td.cart__price {
 	color: #111111;
 	font-size: 18px;

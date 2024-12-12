@@ -142,12 +142,8 @@ $cart_empty = count($items) == 0;
                                                 <h5>Rp. <?php echo number_format($item['price'], 0, ',', '.'); ?></h5>
                                             </div>
                                         </td>
-                                        <td class="quantity__item">
-                                            <div class="quantity">
-                                                <div class="pro-qty-2">
-                                                    <span><?php echo $item['quantity']; ?></span>
-                                                </div>
-                                            </div>
+                                        <td class="cart__price">
+                                            <span><?php echo $item['quantity']; ?></span>
                                         </td>
                                         <td class="cart__price">Rp. <?php echo number_format($item['total_price'], 0, ',', '.'); ?></td>
                                         <td class="cart__close">
