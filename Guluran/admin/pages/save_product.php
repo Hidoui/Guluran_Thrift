@@ -15,6 +15,7 @@ if ($conn->connect_error) {
 
 // Ambil data dari request
 $name = $_POST['name'] ?? null;
+$description = $_POST['description'] ?? null;
 $category = $_POST['category'] ?? null;
 $price = $_POST['price'] ?? null;
 $stock = $_POST['stock'] ?? null;
@@ -22,7 +23,7 @@ $size = $_POST['size'] ?? null;
 $image = $_FILES['image'] ?? null;
 
 // Validasi input
-if (!$name || !$category || !$price || !$stock || !$size || !$image) {
+if (!$name || !$description || !$category || !$price || !$stock || !$size || !$image) {
     echo json_encode(['success' => false, 'message' => 'Semua input harus diisi, termasuk ukuran dan gambar.']);
     exit;
 }
@@ -67,12 +68,16 @@ if (!$category_id) {
 }
 
 // Query untuk menyimpan produk
-$stmt = $conn->prepare("INSERT INTO products (name, category_id, price, stock, size, image) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO products (name, description, category_id, price, stock, size, image, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Gagal mempersiapkan query produk: ' . $conn->error]);
     exit;
 }
-$stmt->bind_param('sidiss', $name, $category_id, $price, $stock, $size, $imageName);
+
+// Untuk kolom `images`, Anda bisa menyimpan nama file gambar utama sebagai contoh.
+$images = $imageName; // Saat ini hanya menyimpan satu gambar
+
+$stmt->bind_param('ssiidsss', $name, $description, $category_id, $price, $stock, $size, $imageName, $images);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Produk berhasil disimpan.']);
@@ -82,3 +87,4 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
+?>
