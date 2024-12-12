@@ -70,12 +70,8 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
     $result = $check_stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $cart_item = $result->fetch_assoc();
-        $cart_item_id = $cart_item['cart_item_id'];
-        $update_sql = "UPDATE cart_items SET quantity = quantity + 1 WHERE cart_item_id = ?";
-        $update_stmt = $conn->prepare($update_sql);
-        $update_stmt->bind_param("i", $cart_item_id);
-        $update_stmt->execute();
+        header('Location: shop.php?exists=true');
+        exit;
     } else {
         $insert_sql = "INSERT INTO cart_items (cart_id, product_id, quantity) 
                        VALUES (?, ?, 1)";
@@ -284,6 +280,17 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productExists = urlParams.get('exists');
+
+        if (productExists) {
+            alert('Produk sudah ada di keranjang!');
+            urlParams.delete('exists');
+            window.history.replaceState({}, '', '?' + urlParams.toString());
+        }
+    </script>
 </body>
 
 </html>

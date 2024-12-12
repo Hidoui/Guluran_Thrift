@@ -265,6 +265,17 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productExists = urlParams.get('exists');
+
+        if (productExists) {
+            alert('Produk sudah ada di keranjang!');
+            urlParams.delete('exists');
+            window.history.replaceState({}, '', '?' + urlParams.toString());
+        }
+    </script>
 </body>
 
 </html>
