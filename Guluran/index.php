@@ -99,7 +99,6 @@ $result = $conn->query($sql);
 
                         echo '<ul class="product__hover">';
                         echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
-                        echo '<li><a href="#"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
                         echo '</ul>';
                         echo '</div>';
                         echo '<div class="product__item__text">';
