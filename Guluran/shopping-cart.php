@@ -138,8 +138,8 @@ $cart_empty = count($items) == 0;
                                                 <a href="./shop-details.php"><img src="img/products/<?php echo $item['image']; ?>" alt=""></a>
                                             </div>
                                             <div class="product__cart__item__text">
-                                                <h6><?php echo $item['name']; ?></h6>
-                                                <h5>Rp. <?php echo number_format($item['price'], 0, ',', '.'); ?></h5>
+                                                <h5><?php echo $item['name']; ?></h5>
+                                                <h6>Rp. <?php echo number_format($item['price'], 0, ',', '.'); ?></h6>
                                             </div>
                                         </td>
                                         <td class="cart__price">

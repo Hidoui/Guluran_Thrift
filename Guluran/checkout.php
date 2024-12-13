@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form method="POST">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <h6 class="checkout__title">Detail</h6>
+                            <h6 class="checkout__title">Alamat Pengiriman</h6>
                             <div class="checkout__input">
                                 <p>Nama Lengkap<span>*</span></p>
                                 <input type="text" name="fullname" required>

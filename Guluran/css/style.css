@@ -1223,8 +1223,8 @@ ol {
 .product__details__pic {
 	text-align: center;
 	background: #f3f2ee;
-	padding: 40px 0 60px;
-	margin-bottom: 100px;
+	padding: 40px 0 200px;
+	margin-bottom: 60px;
 }
 
 .product__details__pic .nav-tabs {
@@ -1330,14 +1330,14 @@ ol {
 
 .product__details__text h4 {
 	color: #111111;
-	font-weight: 700;
-	margin-bottom: 10px;
+	font-weight: 600;
+	margin-bottom: 25px;
 }
 
 .product__details__text h3 {
 	color: #111111;
 	font-weight: 700;
-	margin-bottom: 16px;
+	margin-bottom: 15px;
 }
 
 .product__details__text h3 span {
@@ -1358,7 +1358,7 @@ ol {
 
 .product__details__option__size {
 	display: inline-block;
-	margin-right: 50px;
+	margin-right: 20px;
 }
 
 .product__details__option__size span {
@@ -1475,7 +1475,7 @@ ol {
 }
 
 .product__details__btns__option {
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 }
 
 .product__details__btns__option a {
@@ -1497,7 +1497,7 @@ ol {
 	font-weight: 700;
 	font-size: 20px;
 	position: relative;
-	margin-bottom: 26px;
+	margin-bottom: 25px;
 }
 
 .product__details__last__option h5 span {
@@ -1537,7 +1537,7 @@ ol {
 }
 
 .product__details__tab {
-	padding-top: 60px;
+	padding-top: 30px;
 }
 
 .product__details__tab .nav-tabs {
@@ -1557,7 +1557,7 @@ ol {
 
 .product__details__tab .nav-tabs .nav-item .nav-link {
 	font-size: 20px;
-	color: #b7b7b7;
+	color: #111111;
 	padding: 0;
 	border: none;
 	font-weight: 700;
@@ -1582,7 +1582,7 @@ ol {
 }
 
 .product__details__tab__content__item {
-	margin-bottom: 30px;
+	margin-bottom: 25px;
 }
 
 .product__details__tab__content__item:last-child {
@@ -1593,11 +1593,11 @@ ol {
 	color: #111111;
 	font-size: 20px;
 	font-weight: 700;
-	margin-bottom: 12px;
+	margin-bottom: 15px;
 }
 
 .product__details__tab__content__item p {
-	margin-bottom: 0;
+	margin-bottom: 25px;
 }
 
 /*---------------------
@@ -1751,30 +1751,6 @@ ol {
 }
 
 /*---------------------
-  Breadcrumb Blog
------------------------*/
-
-.breadcrumb-blog {
-	text-align: center;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	height: 350px;
-}
-
-.breadcrumb-blog h2 {
-	color: #ffffff;
-	font-size: 60px;
-	font-weight: 700;
-}
-
-/*---------------------
   Shopping Cart
 -----------------------*/
 
@@ -1787,7 +1763,7 @@ ol {
 }
 
 .shopping__cart__table table thead {
-	border-bottom: 1px solid #f2f2f2;
+	border-bottom: 1px solid #b7b7b7;
 }
 
 .shopping__cart__table table thead tr th {
@@ -1799,7 +1775,7 @@ ol {
 }
 
 .shopping__cart__table table tbody tr {
-	border-bottom: 1px solid #f2f2f2;
+	border-bottom: 1px solid #b7b7b7;
 }
 
 .shopping__cart__table table tbody tr td {
@@ -1839,8 +1815,8 @@ ol {
 
 .shopping__cart__table table tbody tr td.cart__price {
 	color: #111111;
-	font-size: 18px;
-	font-weight: 700;
+	font-size: 15px;
+	font-weight: 600;
 	width: 140px;
 }
 
@@ -1876,7 +1852,7 @@ ol {
 	font-weight: 700;
 	letter-spacing: 4px;
 	padding: 14px 35px;
-	border: 1px solid #e1e1e1;
+	border: 1px solid #b7b7b7;
 	text-transform: uppercase;
 }
 
@@ -1886,7 +1862,7 @@ ol {
     font-weight: 700;
     letter-spacing: 4px;
     padding: 14px 35px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid #b7b7b7;
     background: #111111;
 	border-color: #111111;
     text-transform: uppercase;
@@ -1910,7 +1886,7 @@ ol {
 .cart__total ul li {
 	list-style: none;
 	font-size: 16px;
-	color: #444444;
+	color: #111111;
 	line-height: 40px;
 	overflow: hidden;
 }
@@ -1934,9 +1910,9 @@ ol {
 
 .checkout__title {
 	color: #111111;
-	font-weight: 700;
+	font-weight: 600;
 	text-transform: uppercase;
-	border-bottom: 1px solid #e1e1e1;
+	border-bottom: 1px solid #b7b7b7;
 	padding-bottom: 25px;
 	margin-bottom: 30px;
 }
@@ -1957,9 +1933,9 @@ ol {
 .checkout__input input {
 	height: 50px;
 	width: 100%;
-	border: 1px solid #e1e1e1;
-	font-size: 14px;
-	color: #b7b7b7;
+	border: 1px solid #b7b7b7;
+	font-size: 15px;
+	color: #111111;
 	padding-left: 20px;
 	margin-bottom: 20px;
 }
@@ -2013,7 +1989,7 @@ ol {
 	top: 3px;
 	height: 14px;
 	width: 14px;
-	border: 1.5px solid #d7d7d7;
+	border: 1.5px solid #b7b7b7;
 	content: "";
 	border-radius: 2px;
 }
@@ -2035,7 +2011,7 @@ ol {
 
 .checkout__input__checkbox p {
 	color: #111111;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 24px;
 	margin-bottom: 22px;
 }
@@ -2049,14 +2025,14 @@ ol {
 	color: #111111;
 	font-weight: 700;
 	text-transform: uppercase;
-	border-bottom: 1px solid #d7d7d7;
+	border-bottom: 1px solid #b7b7b7;
 	padding-bottom: 25px;
 	margin-bottom: 30px;
 }
 
 .checkout__order p {
-	color: #444444;
-	font-size: 16px;
+	color: #111111;
+	font-size: 15px;
 	line-height: 28px;
 }
 
@@ -2066,7 +2042,7 @@ ol {
 }
 
 .checkout__order__products {
-	font-size: 16px;
+	font-size: 15px;
 	color: #111111;
 	overflow: hidden;
 	margin-bottom: 18px;
@@ -2081,8 +2057,8 @@ ol {
 }
 
 .checkout__total__products li {
-	font-size: 16px;
-	color: #444444;
+	font-size: 15px;
+	color: #111111;
 	list-style: none;
 	line-height: 26px;
 	overflow: hidden;
@@ -2099,23 +2075,23 @@ ol {
 }
 
 .checkout__total__all {
-	border-top: 1px solid #d7d7d7;
-	border-bottom: 1px solid #d7d7d7;
+	border-top: 1px solid #b7b7b7;
+	border-bottom: 1px solid #b7b7b7;
 	padding: 15px 0;
 	margin-bottom: 26px;
 }
 
 .checkout__total__all li {
 	list-style: none;
-	font-size: 16px;
+	font-size: 15px;
 	color: #111111;
 	line-height: 40px;
 	overflow: hidden;
 }
 
 .checkout__total__all li span {
-	color: #e53637;
-	font-weight: 700;
+	color: #111111;
+	font-weight: 600;
 	float: right;
 }
 
@@ -2137,23 +2113,23 @@ ol {
 
 .contact__text .section-title {
 	text-align: left;
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 }
 
 .contact__text .section-title h2 {
-	font-size: 48px;
-	margin-bottom: 18px;
+	font-size: 25px;
+	margin-bottom: 0;
 }
 
 .contact__text .section-title p {
 	color: #111111;
-	line-height: 26px;
+	line-height: 25px;
 	margin-bottom: 0;
 }
 
 .contact__text ul li {
 	list-style: none;
-	margin-bottom: 26px;
+	margin-bottom: 20px;
 }
 
 .contact__text ul li:last-child {
@@ -2163,21 +2139,21 @@ ol {
 .contact__text ul li h4 {
 	color: #111111;
 	font-weight: 700;
-	margin-bottom: 8px;
+	margin-bottom: 10px;
 }
 
 .contact__text ul li p {
-	line-height: 27px;
+	line-height: 25px;
 	margin-bottom: 0;
 }
 
 .contact__form input {
 	height: 50px;
 	width: 100%;
-	border: 1px solid #e1e1e1;
+	border: 1px solid #b7b7b7;
 	padding-left: 20px;
 	font-size: 15px;
-	color: #b7b7b7;
+	color: #111111;
 	margin-bottom: 30px;
 }
 
@@ -2204,11 +2180,11 @@ ol {
 .contact__form textarea {
 	height: 150px;
 	width: 100%;
-	border: 1px solid #e1e1e1;
+	border: 1px solid #b7b7b7;
 	padding-left: 20px;
 	padding-top: 12px;
 	font-size: 15px;
-	color: #b7b7b7;
+	color: #111111;
 	margin-bottom: 24px;
 	resize: none;
 }

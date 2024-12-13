@@ -201,12 +201,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                     <button type="submit" name="add_to_cart" class="primary-btn">Masukkan Keranjang</button>
                                 </form>
                             </div>
-                            <div class="product__details__last__option">
-                                <ul>
-                                    <li><span>SKU:</span> <?php echo $product['product_id']; ?></li>
-                                    <li><span>Category:</span> <?php echo $product['category_name']; ?></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
