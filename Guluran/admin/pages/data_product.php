@@ -321,11 +321,11 @@ ini_set('display_errors', 1);
     </div>
     <div class="mb-3">
       <label for="productdescription" class="form-label custom-label">description</label>
-      <input type="text" class="form-control custom-input" id="productdescription" placeholder="Masukkan description" required>
+      <textarea id="text" class="form-control custom-input" id="productdescription" placeholder="Masukkan description"></textarea>
     </div>
     <div class="mb-3">
       <label for="productCategory" class="form-label custom-label">Kategori</label>
-      <input type="text" class="form-control custom-input" id="productCategory" placeholder="Masukkan Kategori Produk" required>
+      <input type="text" class="form-control custom-input" id="productCategory" placeholder="Masukkan Kategori Produk"required>
     </div>
     <div class="mb-3">
       <label for="productPrice" class="form-label custom-label">Harga</label>

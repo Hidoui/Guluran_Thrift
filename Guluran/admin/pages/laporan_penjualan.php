@@ -269,7 +269,7 @@
       </thead>
       <tbody>
       <?php
-          $sql = "SELECT * FROM laporan_penjualan lp INNER JOIN products pr ON lp.product_id = pr.product_id INNER JOIN users ur ON lp.user_id = ur.user_id INNER JOIN categories cs ON pr.category_id = cs.category_id;";
+          $sql = "SELECT * FROM orders od INNER JOIN users us ON od.user_id = us.user_id INNER JOIN order_items oi ON od.order_id = oi.order_id INNER JOIN products pr ON oi.product_id = pr.product_id INNER JOIN categories cs ON pr.category_id = cs.category_id;";
           $hasil = $conn->query($sql);
           if($hasil->num_rows > 0) {
             $i = 1;

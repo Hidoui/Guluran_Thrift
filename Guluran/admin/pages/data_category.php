@@ -264,13 +264,12 @@ ini_set('display_errors', 1);
         <tr>
           <th>No.</th>
           <th>Nama Category Celana</th>
-          <th>Kategori</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php
-          $sql = "SELECT * FROM products pr INNER JOIN categories cr ON pr.category_id = cr.category_id;";
+          $sql = "SELECT * FROM categories";
           $hasil = $conn->query($sql);
           if($hasil->num_rows > 0) {
             $i = 1;
@@ -278,12 +277,7 @@ ini_set('display_errors', 1);
         ?>
         <tr>
           <td><?= $i?></td>
-          <td><img src="uploads/<?= $row['image'] ?>" width="150" alt="" class=""></td>
-          <td><?= $row['name']?></td>
           <td><?= $row['category_name']?></td>
-          <td><?= $row['size']?></td>  
-          <td><?= $row['price']?></td>
-          <td><?= $row['stock']?></td>
           <td class="action-btns">
             <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
             <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
@@ -310,29 +304,8 @@ ini_set('display_errors', 1);
       <div class="modal-body">
   <form>
     <div class="mb-3">
-      <label for="productName" class="form-label custom-label">Nama Produk</label>
-      <input type="text" class="form-control custom-input" id="productName" placeholder="Masukkan Nama Produk" required>
-    </div>
-    <div class="mb-3">
-      <label for="productCategory" class="form-label custom-label">Kategori</label>
-      <input type="text" class="form-control custom-input" id="productCategory" placeholder="Masukkan Kategori Produk" required>
-    </div>
-    <div class="mb-3">
-      <label for="productPrice" class="form-label custom-label">Harga</label>
-      <input type="text" class="form-control custom-input" id="productPrice" placeholder="Masukkan Harga Produk" required>
-    </div>
-    <div class="mb-3">
-      <label for="productStock" class="form-label custom-label">Stok</label>
-      <input type="number" class="form-control custom-input" id="productStock" placeholder="Masukkan Stok Produk" required>
-    </div>
-    <div class="mb-3">
-      <label for="productStock" class="form-label custom-label">Size</label>
-      <input type="number" class="form-control custom-input" id="size" placeholder="Masukkan Size" required>
-    </div>
-    <div class="mb-3">
-      <label for="productImage" class="form-label custom-label">Foto Produk</label>
-      <input type="file" class="form-control custom-input" id="productImage" accept="image/*">
-      <small class="form-text text-muted">Pilih gambar produk (JPG, PNG, JPEG)</small>
+      <label for="CategoryName" class="form-label custom-label">Nama Category Celana</label>
+      <input type="text" class="form-control custom-input" id="CategoryName" placeholder="Masukkan Nama Category" required>
     </div>
   </form>
 </div>
@@ -340,15 +313,13 @@ ini_set('display_errors', 1);
 <!-- Add custom styles -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-success" id="saveProductBtn">Simpan</button>
+        <button type="button" class="btn btn-success" id="saveCategoryBtn">Simpan</button>
       </div>
     </div>
   </div>
 </div>
     </div>
   </main>
-  
-
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -357,59 +328,34 @@ ini_set('display_errors', 1);
   <script src="../assets/js/plugins/chartjs.min.js"></script>
  
   <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('saveCategoryBtn').addEventListener('click', function () {
+      const categoryName = document.getElementById('CategoryName').value;
+      const formData = new FormData();
+      formData.append('category_name', categoryName);
+
+      fetch('save_category.php', {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (data.success) {
+              alert('Kategori berhasil ditambahkan!');
+              location.reload();
+          } else {
+              alert('Gagal menambahkan kategori: ' + data.message);
+          }
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
 </body>
-<script>
-  document.getElementById('saveProductBtn').addEventListener('click', function () {
-    // Ambil data dari form
-    const productData = {
-      name: document.getElementById('productName').value,
-      category: document.getElementById('productCategory').value,
-      price: document.getElementById('productPrice').value,
-      stock: document.getElementById('productStock').value,
-      size: document.getElementById('size').value,
-      image: document.getElementById('productImage').files[0]
-    };
-
-    // Buat form data untuk mengirim file gambar
-    const formData = new FormData();
-    formData.append('name', productData.name);
-    formData.append('category', productData.category);
-    formData.append('price', productData.price);
-    formData.append('stock', productData.stock);
-    formData.append('size', productData.size);
-    if (productData.image) {
-      formData.append('image', productData.image);
-    }
-
-    // Kirim data ke server
-    fetch('save_product.php', {
-  method: 'POST',
-  body: formData
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.text(); // Gunakan text() untuk debug
-  })
-  .then(text => {
-    try {
-      const data = JSON.parse(text); // Parse JSON
-      if (data.success) {
-        alert('Produk berhasil disimpan!');
-      } else {
-        alert('Gagal menyimpan produk: ' + data.message);
-      }
-    } catch (error) {
-      console.error('Invalid JSON:', text);
-      alert('Terjadi kesalahan: Respons server tidak valid.');
-    }
-  })
-  .catch(error => console.error('Error:', error));
-
-  });
-</script>
 </html>
