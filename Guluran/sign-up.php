@@ -49,6 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+    <!-- Box Icons -->
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="path-to-boxicons/css/boxicons.min.css" rel="stylesheet">
+
     <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
@@ -83,15 +87,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div class="checkout__input">
                                 <p>Password<span>*</span></p>
-                                <input type="password" name="password" placeholder="Masukkan Password" required>
+                                <div class="password-container">
+                                    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
+                                    <span class="bx bxs-show" id="togglePassword"></span>
+                                </div>
                             </div>
                             <div class="checkout__input">
                                 <p>Confirm Password<span>*</span></p>
-                                <input type="password" name="confirm_password" placeholder="Konfirmasi Password" required>
+                                <div class="password-container">
+                                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Konfirmasi Password" required>
+                                    <span class="bx bxs-show" id="toggleConfirmPassword"></span>
+                                </div>
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="agree-terms">
-                                    I agree to the terms and conditions
+                                    Saya menyetujui syarat dan ketentuan
                                     <input type="checkbox" id="agree-terms" name="agree_terms" required>
                                     <span class="checkmark"></span>
                                 </label>
@@ -129,6 +139,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const confirmPasswordField = document.getElementById('confirm_password');
+
+        togglePassword.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                togglePassword.classList.replace('bxs-show', 'bxs-hide');
+            } else {
+                passwordField.type = 'password';
+                togglePassword.classList.replace('bxs-hide', 'bxs-show');
+            }
+        });
+
+        toggleConfirmPassword.addEventListener('click', function() {
+            if (confirmPasswordField.type === 'password') {
+                confirmPasswordField.type = 'text';
+                toggleConfirmPassword.classList.replace('bxs-show', 'bxs-hide');
+            } else {
+                confirmPasswordField.type = 'password';
+                toggleConfirmPassword.classList.replace('bxs-hide', 'bxs-show');
+            }
+        });
+    </script>
 </body>
 
 </html>
