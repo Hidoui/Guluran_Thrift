@@ -59,28 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <style>
-        .password-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .password-container input {
-            width: 100%;
-            padding-right: 50px;
-        }
-
-        .bx {
-            font-size: 20px;
-            color: #111111;
-            position: absolute;
-            right: 20px;
-            top: 35%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
@@ -89,82 +67,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="loader"></div>
     </div>
 
-    <body>
-        <!-- Sign In Section Begin -->
-        <section class="login spad">
-            <div class="container">
-                <div class="login__form">
-                    <form method="POST">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6">
-                                <div class="checkout__input">
-                                    <p>Email<span>*</span></p>
-                                    <input type="email" name="email" placeholder="Masukkan Email" required>
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text" style="font-family: 'Poppins', sans-serif;">
+                        <h4>Sign In</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.php">Beranda</a>
+                            <span>Sign In</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Sign In Section Begin -->
+    <section class="login spad">
+        <div class="container">
+            <div class="login__form">
+                <form method="POST">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <div class="checkout__input">
+                                <p>Email<span>*</span></p>
+                                <input type="email" name="email" placeholder="Masukkan Email" required>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Password<span>*</span></p>
+                                <div class="password-container">
+                                    <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
+                                    <span class="bx bxs-show" id="togglePassword"></span>
                                 </div>
-                                <div class="checkout__input">
-                                    <p>Password<span>*</span></p>
-                                    <div class="password-container">
-                                        <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
-                                        <span class="bx bxs-show" id="togglePassword"></span>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="remember-me">
+                                    Remember Me
+                                    <input type="checkbox" id="remember-me">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn update__btn">
+                                        <button type="submit">Konfirmasi</button>
                                     </div>
                                 </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="remember-me">
-                                        Remember Me
-                                        <input type="checkbox" id="remember-me">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="continue__btn update__btn">
-                                            <button type="submit">Konfirmasi</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
-                                        <div class="continue__btn">
-                                            <a href="./sign-up.php">Sign Up</a>
-                                        </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="continue__btn">
+                                        <a href="./sign-up.php">Sign Up</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </section>
-        <!-- Sign In Section End -->
+        </div>
+    </section>
+    <!-- Sign In Section End -->
 
-        <?php
-        include('footer.php');
-        ?>
+    <?php
+    include('footer.php');
+    ?>
 
-        <!-- JS Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery.nicescroll.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.countdown.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+    <!-- JS Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 
-        <script>
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordField = document.getElementById('password');
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
 
-            togglePassword.addEventListener('click', function() {
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    togglePassword.classList.replace('bxs-show', 'bxs-hide');
-                } else {
-                    passwordField.type = 'password';
-                    togglePassword.classList.replace('bxs-hide', 'bxs-show');
-                }
-            });
-        </script>
-    </body>
+        togglePassword.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                togglePassword.classList.replace('bxs-show', 'bxs-hide');
+            } else {
+                passwordField.type = 'password';
+                togglePassword.classList.replace('bxs-hide', 'bxs-show');
+            }
+        });
+    </script>
+</body>
 
 </html>

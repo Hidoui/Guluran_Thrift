@@ -62,28 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-
-    <style>
-        .password-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .password-container input {
-            width: 100%;
-            padding-right: 50px;
-        }
-
-        .bx {
-            font-size: 20px;
-            color: #111111;
-            position: absolute;
-            right: 20px;
-            top: 35%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
@@ -91,6 +69,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div id="preloder">
         <div class="loader"></div>
     </div>
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text" style="font-family: 'Poppins', sans-serif;">
+                        <h4>Sign Up</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.php">Beranda</a>
+                            <a href="./sign-in.php">Sign In</a>
+                            <span>Sign Up</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
 
     <!-- Sign Up Section Begin -->
     <section class="login spad">
