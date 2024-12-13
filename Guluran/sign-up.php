@@ -62,6 +62,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <style>
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 50px;
+        }
+
+        .bx {
+            font-size: 20px;
+            color: #111111;
+            position: absolute;
+            right: 20px;
+            top: 35%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
