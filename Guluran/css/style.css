@@ -1768,7 +1768,7 @@ ol {
 
 .shopping__cart__table table thead tr th {
 	color: #111111;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 700;
 	text-transform: uppercase;
 	padding-bottom: 25px;
@@ -1910,7 +1910,7 @@ ol {
 
 .checkout__title {
 	color: #111111;
-	font-weight: 600;
+	font-weight: 700;
 	text-transform: uppercase;
 	border-bottom: 1px solid #b7b7b7;
 	padding-bottom: 25px;
@@ -2212,4 +2212,59 @@ ol {
 .contact__form button {
 	letter-spacing: 4px;
 	padding: 14px 35px;
+}
+
+/*---------------------
+  Account
+-----------------------*/
+
+.account__profile {
+    margin-top: -50px;
+}
+
+.account__profile .nav-tabs {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.account__profile .nav-item {
+    margin-right: 200px;
+	margin-left: 200px;
+}
+
+.account__profile .nav-link {
+    font-size: 20px;
+    color: #111111;
+    font-weight: 700;
+    padding: 10px 0;
+    border: none;
+}
+
+.account__profile .nav-link.active {
+    border-bottom: 2px solid #e53637;
+    color: #111111;
+}
+
+.account__profile .tab-content {
+    text-align: left;
+}
+
+.account__profile .tab-pane {
+    display: none;
+}
+
+.account__profile .tab-pane.active {
+    display: block;
+}
+
+.account__profile .account__info p {
+    font-size: 15px;
+	color: #111111;
+    line-height: 30px;
+}
+
+.account__profile .account__info strong {
+	color: #111111;
+    font-weight: 600;
 }
