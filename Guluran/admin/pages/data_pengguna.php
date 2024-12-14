@@ -117,14 +117,19 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
   </div>
 
   <script>
+    let user_id; // Declare user_id globally
+
     function setEdit(btnData) {
+      user_id = btnData.getAttribute('data-user-id'); // Get user_id from button data
       let username = btnData.getAttribute('data-username');
       let email = btnData.getAttribute('data-email');
       document.getElementById('editUsername').value = username;
       document.getElementById('editEmail').value = email;
     }
-    // fungsi mengubah isi tabel 
-    function editUser(user_id) {
+
+    function handleEditUser (event, userId) {
+      event.preventDefault(); // Prevent default form submission
+
       // Ambil nilai input dari form
       const username = document.getElementById('editUsername').value;
       const email = document.getElementById('editEmail').value;
@@ -135,17 +140,12 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return;
       }
 
-      // Debugging: Pastikan data yang akan dikirim sudah benar
-      console.log("User ID:", user_id);
-      console.log("Username:", username);
-      console.log("Email:", email);
-
       const confirmUpdate = confirm('Apakah Anda yakin ingin mengubah data pengguna ini?');
 
       if (confirmUpdate) {
         // Mengirim data update ke server
         const formData = new FormData();
-        formData.append('user_id', user_id);
+        formData.append('user_id', userId);
         formData.append('username', username);
         formData.append('email', email);
 
