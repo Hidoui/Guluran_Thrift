@@ -95,7 +95,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <i class="fas fa-edit"></i> Edit
                   </button>
                   <form action="hapus_order.php" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">
-
+                    <input type="hidden" name="order_id" value="<?= $row['order_id'] ?>">
                     <button type="submit" class="btn btn-danger btn-sm my-0"><i class="fas fa-trash-alt"></i> Hapus</button>
                   </form>
                 </td>
