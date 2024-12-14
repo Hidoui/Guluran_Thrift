@@ -88,7 +88,7 @@ ol {
 }
 
 .section-title span {
-	color: #e53637;
+	color: #F72C5B;
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -519,7 +519,7 @@ ol {
 	bottom: 0;
 	width: 100%;
 	height: 2px;
-	background: #e53637;
+	background: #F72C5B;
 	content: "";
 	-webkit-transition: all, 0.5s;
 	-o-transition: all, 0.5s;
@@ -570,6 +570,15 @@ ol {
 	display: none;
 }
 
+.header .cart-count {
+	font-size: 12px;
+	color: #F72C5B;
+	position: absolute;
+	font-weight: 600;
+	top: -5px;
+	right: -5px;
+}
+
 /*---------------------
   Hero
 -----------------------*/
@@ -615,7 +624,7 @@ ol {
 }
 
 .hero__text h6 {
-	color: #e53637;
+	color: #F72C5B;
 	font-size: 14px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -833,7 +842,7 @@ ol {
 
 .product__item__text a {
 	font-size: 15px;
-	color: #e53637;
+	color: #F72C5B;
 	font-weight: 700;
 	position: absolute;
 	left: 0;
@@ -1586,7 +1595,7 @@ ol {
 }
 
 .product__details__tab .nav-tabs .nav-item .nav-link.active {
-	border-bottom: 2px solid #e53637;
+	border-bottom: 2px solid #F72C5B;
 }
 
 .product__details__tab__content {
@@ -1913,7 +1922,7 @@ ol {
 
 .cart__total ul li span {
 	font-weight: 700;
-	color: #e53637;
+	color: #F72C5B;
 	float: right;
 }
 
@@ -1947,7 +1956,7 @@ ol {
 }
 
 .checkout__input p span {
-	color: #e53637;
+	color: #F72C5B;
 }
 
 .checkout__input input {
@@ -1996,7 +2005,7 @@ ol {
 }
 
 .checkout__input__checkbox label input:checked~.checkmark {
-	border-color: #e53637;
+	border-color: #F72C5B;
 }
 
 .checkout__input__checkbox label input:checked~.checkmark:after {
@@ -2020,7 +2029,7 @@ ol {
 	top: -3px;
 	width: 14px;
 	height: 7px;
-	border: solid #e53637;
+	border: solid #F72C5B;
 	border-width: 1.5px 1.5px 0px 0px;
 	-webkit-transform: rotate(127deg);
 	-ms-transform: rotate(127deg);
@@ -2243,6 +2252,7 @@ ol {
 }
 
 .account__profile .nav-tabs {
+	border-bottom: 1px solid #b7b7b7;
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
@@ -2262,7 +2272,7 @@ ol {
 }
 
 .account__profile .nav-link.active {
-    border-bottom: 2px solid #e53637;
+    border-bottom: 2px solid #F72C5B;
     color: #111111;
 }
 
@@ -2287,4 +2297,87 @@ ol {
 .account__profile .account__info strong {
 	color: #111111;
     font-weight: 600;
+}
+
+/*---------------------
+  Cart
+-----------------------*/
+
+.cart__summary {
+	background: #f3f2ee;
+	padding: 30px;
+}
+
+.cart__summary .summary__title {
+	color: #111111;
+	font-weight: 700;
+	text-transform: uppercase;
+	border-bottom: 1px solid #b7b7b7;
+	padding-bottom: 25px;
+	margin-bottom: 30px;
+}
+
+.cart__summary p {
+	color: #111111;
+	font-size: 15px;
+	line-height: 28px;
+}
+
+.cart__summary .site-btn {
+	width: 100%;
+	margin-top: 8px;
+}
+
+.cart__summary__products {
+	font-size: 15px;
+	color: #111111;
+	overflow: hidden;
+	margin-bottom: 18px;
+}
+
+.cart__summary__products span {
+	float: right;
+}
+
+.cart__total__products {
+	margin-bottom: 20px;
+}
+
+.cart__total__products li {
+	font-size: 15px;
+	color: #111111;
+	list-style: none;
+	line-height: 26px;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.cart__total__products li:last-child {
+	margin-bottom: 0;
+}
+
+.cart__total__products li span {
+	color: #111111;
+	float: right;
+}
+
+.cart__total__all {
+	border-top: 1px solid #b7b7b7;
+	border-bottom: 1px solid #b7b7b7;
+	padding: 15px 0;
+	margin-bottom: 26px;
+}
+
+.cart__total__all li {
+	list-style: none;
+	font-size: 15px;
+	color: #111111;
+	line-height: 40px;
+	overflow: hidden;
+}
+
+.cart__total__all li span {
+	color: #111111;
+	font-weight: 600;
+	float: right;
 }
