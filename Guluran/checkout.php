@@ -57,6 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
 
+        $delete_cart_sql = "DELETE FROM carts WHERE user_id = ?";
+        $stmt = $conn->prepare($delete_cart_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+
         header('Location: index.php');
         exit;
     } else {
@@ -206,14 +211,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script>
         function confirmOrder(event) {
+            var paymentChecked = document.querySelector('input[name="payment"]:checked');
+
+            var fullname = document.querySelector('input[name="fullname"]').value;
+            var province = document.querySelector('input[name="province"]').value;
+            var city = document.querySelector('input[name="city"]').value;
+            var district = document.querySelector('input[name="district"]').value;
+            var postal_code = document.querySelector('input[name="postal_code"]').value;
+            var address = document.querySelector('input[name="address"]').value;
+            var phone = document.querySelector('input[name="phone"]').value;
+
+            if (!fullname || !province || !city || !district || !postal_code || !address || !phone) {
+                alert("Silakan lengkapi data pengiriman.");
+                event.preventDefault();
+                return false;
+            }
+
+            if (!paymentChecked) {
+                alert("Silakan pilih metode pembayaran.");
+                event.preventDefault(); 
+                return false;
+            }
+
             var userConfirmation = confirm("Apakah Anda yakin ingin melanjutkan pesanan?");
             if (!userConfirmation) {
                 event.preventDefault();
             }
         }
 
-        document.querySelector('form').addEventListener('submit', confirmOrder);
+        document.querySelector('.site-btn').addEventListener('click', confirmOrder);
     </script>
+
 </body>
 
 </html>
