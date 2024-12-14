@@ -58,7 +58,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </div>
     </div>
   </div>
-
+<!-- tabel -->
   <div class="table-wrapper">
     <table class="table align-items-center mb-0">
       <thead>
@@ -175,7 +175,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
       const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
 
       if (confirmDelete) {
-        fetch(`hapus_user.php?id=${user_id}`, {
+        fetch(`hapus_users.php?id=${user_id}`, {
             method: 'GET'
           })
           .then(response => response.json())

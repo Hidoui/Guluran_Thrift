@@ -88,152 +88,85 @@ ini_set('display_errors', 1);
   </head>
 
   <body>
-    <div class="table-wrapper">
-      <table class="table table-bordered table-striped">
-        <thead>
+  <div class="table-wrapper">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Pembeli</th>
+          <th>Kategori</th>
+          <th>Jumlah</th>
+          <th>Total Harga</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if (!empty($orders)) : ?>
+          <?php foreach ($orders as $row) : ?>
+            <tr>
+              <td class="text-muted"><?= htmlspecialchars($row['order_id']); ?></td>
+              <td class="text-muted"><?= htmlspecialchars($row['customer_name']); ?></td>
+              <td class="text-muted"><?= htmlspecialchars($row['product_name']); ?></td>
+              <td class="text-muted"><?= htmlspecialchars($row['category']); ?></td>
+              <td class="text-muted"><?= htmlspecialchars($row['quantity']); ?></td>
+              <td class="text-muted"><?= "Rp " . number_format($row['total_price'], 0, ',', '.'); ?></td>
+              <td>
+                <span class="badge bg-success"><?= htmlspecialchars($row['status']); ?></span>
+              </td>
+              <td>
+                <button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="btn btn-warning btn-sm" data-id="<?= $row['order_id']; ?>" data-customer="<?= $row['customer_name'] ?>" data-product="<?= $row['product_name'] ?>" data-status="<?= $row['status'] ?>" onclick="setEditOrder(this)">Ubah</button>
+                <button class="btn btn-danger btn-sm" data-id="<?= $row['order_id']; ?>" onclick="deleteOrder(<?= $row['order_id']; ?>)">Hapus</button>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        <?php else : ?>
           <tr>
-            <th>No.</th>
-            <th>Foto Produk</th>
-            <th>ID Pesanan</th>
-            <th>Nama Pembeli</th>
-            <th>Nama Produk</th>
-            <th>Kategori</th>
-            <th>Jumlah</th>
-            <th>Total Harga</th>
-            <th>Status</th>
-            <th>Aksi</th>
+            <td colspan="8" class="text-center text-muted">Tidak ada data pesanan.</td>
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td><img src="https://via.placeholder.com/50" alt="Smartphone" class="rounded-circle"></td>
-            <td>PES-0001</td>
-            <td>Rahmat Hidayat</td>
-            <td>Smartphone</td>
-            <td>Elektronik</td>
-            <td>1</td>
-            <td>Rp 5.000.000</td>
-            <td><span class="badge bg-success">Lunas</span></td>
-            <td class="action-btns">
-              <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
-              <button class="btn btn-warning btn-sm"><i class="fas fa-eye"></i> Edit</button>
-              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td><img src="https://via.placeholder.com/50" alt="Headphones" class="rounded-circle"></td>
-            <td>PES-0002</td>
-            <td>Siti Nur Aisyah</td>
-            <td>Headphones</td>
-            <td>Elektronik</td>
-            <td>2</td>
-            <td>Rp 3.000.000</td>
-            <td><span class="badge bg-warning text-dark">Menunggu Pembayaran</span></td>
-            <td class="action-btns">
-              <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
-              <button class="btn btn-warning btn-sm"><i class="fas fa-eye"></i> Edit</button>
-              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td><img src="https://via.placeholder.com/50" alt="Laptop" class="rounded-circle"></td>
-            <td>PES-0003</td>
-            <td>Budi Santoso</td>
-            <td>Laptop</td>
-            <td>Elektronik</td>
-            <td>1</td>
-            <td>Rp 10.000.000</td>
-            <td><span class="badge bg-danger">Dibatalkan</span></td>
-            <td class="action-btns">
-              <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
-              <button class="btn btn-warning btn-sm"><i class="fas fa-eye"></i> Edit</button>
-              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td><img src="https://via.placeholder.com/50" alt="Smartwatch" class="rounded-circle"></td>
-            <td>PES-0004</td>
-            <td>Aliyah Rahma</td>
-            <td>Smartwatch</td>
-            <td>Elektronik</td>
-            <td>1</td>
-            <td>Rp 2.000.000</td>
-            <td><span class="badge bg-info text-dark">Diproses</span></td>
-            <td class="action-btns">
-              <button class="btn btn-primary btn-sm"><i class="fas fa-eye"></i> Detail</button>
-              <button class="btn btn-warning btn-sm"><i class="fas fa-eye"></i> Edit</button>
-              <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Hapus</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <?php endif; ?>
+      </tbody>
+    </table>
+</div>
+
+<!-- Modal Edit Order -->
+<div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editOrderModalLabel">Edit Pesanan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editOrderForm">
+          <div class="mb-3">
+            <label for="editCustomerName" class="form-label">Nama Pembeli</label>
+            <input type="text" class="form-control" id="editCustomerName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductName" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="editProductName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editStatus" class="form-label">Status</label>
+            <select class="form-select" id="editStatus" required>
+              <option value="Lunas">Lunas</option>
+              <option value="Pending">Pending</option>
+              <option value="Batal">Batal</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   </body>
 
   </html>
-
-
-  <!-- Modal to Add Product -->
-  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="addProductModalLabel">Tambah Data Produk</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="productName" class="form-label">Nama Produk</label>
-              <input type="text" class="form-control" id="productName" placeholder="Nama Produk" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="productCategory" class="form-label">Kategori</label>
-              <input type="text" class="form-control" id="productCategory" placeholder="Kategori Produk" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="productPrice" class="form-label">Harga</label>
-              <div class="input-group">
-                <span class="input-group-text">Rp</span>
-                <input type="text" class="form-control" id="productPrice" placeholder="Harga Produk" required>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="productStock" class="form-label">Stok</label>
-              <input type="number" class="form-control" id="productStock" placeholder="Stok Produk" required>
-            </div>
-
-            <!-- Optional: Add image upload -->
-            <div class="mb-3">
-              <label for="productImage" class="form-label">Foto Produk</label>
-              <input type="file" class="form-control" id="productImage">
-            </div>
-          </form>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button type="button" class="btn btn-success">Simpan</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-
-
 
 </main>
 <!--   Core JS Files   -->
@@ -242,239 +175,7 @@ ini_set('display_errors', 1);
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/chartjs.min.js"></script>
-<script>
-  var ctx = document.getElementById("chart-bars").getContext("2d");
 
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["M", "T", "W", "T", "F", "S", "S"],
-      datasets: [{
-        label: "Views",
-        tension: 0.4,
-        borderWidth: 0,
-        borderRadius: 4,
-        borderSkipped: false,
-        backgroundColor: "#43A047",
-        data: [50, 45, 22, 28, 50, 60, 76],
-        barThickness: 'flex'
-      }, ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [5, 5],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 500,
-            beginAtZero: true,
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-            color: "#737373"
-          },
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-
-
-  var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-  new Chart(ctx2, {
-    type: "line",
-    data: {
-      labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-      datasets: [{
-        label: "Sales",
-        tension: 0,
-        borderWidth: 2,
-        pointRadius: 3,
-        pointBackgroundColor: "#43A047",
-        pointBorderColor: "transparent",
-        borderColor: "#43A047",
-        backgroundColor: "transparent",
-        fill: true,
-        data: [120, 230, 130, 440, 250, 360, 270, 180, 90, 300, 310, 220],
-        maxBarThickness: 6
-
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            title: function(context) {
-              const fullMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-              return fullMonths[context[0].dataIndex];
-            }
-          }
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [4, 4],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 12,
-              lineHeight: 2
-            },
-          }
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 12,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-
-  var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
-
-  new Chart(ctx3, {
-    type: "line",
-    data: {
-      labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [{
-        label: "Tasks",
-        tension: 0,
-        borderWidth: 2,
-        pointRadius: 3,
-        pointBackgroundColor: "#43A047",
-        pointBorderColor: "transparent",
-        borderColor: "#43A047",
-        backgroundColor: "transparent",
-        fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-        maxBarThickness: 6
-
-      }],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [4, 4],
-            color: '#e5e5e5'
-          },
-          ticks: {
-            display: true,
-            padding: 10,
-            color: '#737373',
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [4, 4]
-          },
-          ticks: {
-            display: true,
-            color: '#737373',
-            padding: 10,
-            font: {
-              size: 14,
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
-  });
-</script>
 <script>
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {
