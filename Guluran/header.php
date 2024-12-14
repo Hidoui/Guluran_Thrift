@@ -1,5 +1,25 @@
 <?php
 session_start();
+include('config/db.php');
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    $sql = "SELECT COUNT(*) AS cart_item_count
+        FROM cart_items ci
+        JOIN carts c ON ci.cart_id = c.cart_id
+        WHERE c.user_id = ?";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $stmt->bind_result($cartCount);
+        $stmt->fetch();
+        $stmt->close();
+    }
+} else {
+    $cartCount = 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +62,9 @@ session_start();
                         </a>
                         <a href="./shopping-cart.php">
                             <i class="bx bx-shopping-bag" style="color:#111111; font-size: 20px"></i>
+                            <?php if ($cartCount > 0): ?>
+                                <span class="cart-count"><?php echo $cartCount; ?></span>
+                            <?php endif; ?>
                         </a>
                         <nav class="header__top__hover">
                             <?php if (isset($_SESSION['user_id'])): ?>
