@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         Bank Transfer
-                                        <input type="radio" name="payment" id="payment" value="Bank" required>
+                                        <input type="radio" name="payment" id="payment" value="Bank Transfer" required>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
