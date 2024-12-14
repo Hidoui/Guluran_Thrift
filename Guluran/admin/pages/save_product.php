@@ -21,9 +21,10 @@ $price = $_POST['price'] ?? null;
 $stock = $_POST['stock'] ?? null;
 $size = $_POST['size'] ?? null;
 $image = $_FILES['image'] ?? null;
+$images = $_FILES['images'] ?? null;
 
 // Validasi input
-if (!$name || !$description || !$category || !$price || !$stock || !$size || !$image) {
+if (!$name || !$description || !$category || !$price || !$stock || !$size || !$image || !$images) {
     echo json_encode(['success' => false, 'message' => 'Semua input harus diisi, termasuk ukuran dan gambar.']);
     exit;
 }
@@ -45,6 +46,25 @@ if (!in_array($image['type'], $allowedTypes)) {
 
 // Pindahkan gambar ke folder target
 if (!move_uploaded_file($image['tmp_name'], $targetFile)) {
+    echo json_encode(['success' => false, 'message' => 'Gagal mengunggah gambar.']);
+    exit;
+}
+
+if (!is_dir($uploadDir)) {
+    mkdir($uploadDir, 0777, true); // Buat direktori jika belum ada
+}
+$imageNames = time() . '_' . basename($images['name']);
+$targetFiles = $uploadDir . $imageNames;
+
+// Periksa jenis file gambar
+$allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+if (!in_array($images['type'], $allowedTypes)) {
+    echo json_encode(['success' => false, 'message' => 'Jenis file gambar 2 tidak valid.']);
+    exit;
+}
+
+// Pindahkan gambar ke folder target
+if (!move_uploaded_file($images['tmp_name'], $targetFiles)) {
     echo json_encode(['success' => false, 'message' => 'Gagal mengunggah gambar.']);
     exit;
 }
@@ -77,7 +97,7 @@ if (!$stmt) {
 // Untuk kolom `images`, Anda bisa menyimpan nama file gambar utama sebagai contoh.
 $images = $imageName; // Saat ini hanya menyimpan satu gambar
 
-$stmt->bind_param('ssiidsss', $name, $description, $category_id, $price, $stock, $size, $imageName, $images);
+$stmt->bind_param('ssiidsss', $name, $description, $category_id, $price, $stock, $size, $imageName, $imageNames);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => 'Produk berhasil disimpan.']);

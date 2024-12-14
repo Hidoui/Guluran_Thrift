@@ -201,13 +201,13 @@ ini_set('display_errors', 1);
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/data_pengguna.php">
-            <i class="material-symbols-rounded opacity-5">person</i>
+            <i class="material-symbols-rounded opacity-5">group</i>
             <span class="nav-link-text ms-1">Data Pengguna</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/data_category.php">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+            <i class="material-symbols-rounded opacity-5">Category</i>
             <span class="nav-link-text ms-1">Data Category</span>
           </a>
         </li>
@@ -263,7 +263,8 @@ ini_set('display_errors', 1);
       <thead>
         <tr>
           <th>No.</th>
-          <th>Foto</th>
+          <th>Foto 1</th>
+          <th>Foto 2</th>
           <th>Nama Produk</th>
           <th>description</th>
           <th>Kategori</th>
@@ -284,6 +285,7 @@ ini_set('display_errors', 1);
         <tr>
           <td><?= $i?></td>
           <td><img src="uploads/<?= $row['image'] ?>" width="150" alt="" class=""></td>
+          <td><img src="uploads/<?= $row['images'] ?>" width="150" alt="" class=""></td>
           <td><?= $row['name']?></td>
           <td><?= $row['description']?></td>
           <td><?= $row['category_name']?></td>
@@ -321,7 +323,7 @@ ini_set('display_errors', 1);
     </div>
     <div class="mb-3">
       <label for="productdescription" class="form-label custom-label">description</label>
-      <textarea id="text" class="form-control custom-input" id="productdescription" placeholder="Masukkan description"></textarea>
+      <textarea class="form-control custom-input" id="productdescription" placeholder="Masukkan description"></textarea>
     </div>
     <div class="mb-3">
       <label for="productCategory" class="form-label custom-label">Kategori</label>
@@ -340,8 +342,13 @@ ini_set('display_errors', 1);
       <input type="text" class="form-control custom-input" id="size" placeholder="Masukkan Size" required>
     </div>
     <div class="mb-3">
-      <label for="productImage" class="form-label custom-label">Foto Produk</label>
+      <label for="productImage" class="form-label custom-label">Foto Produk 1</label>
       <input type="file" class="form-control custom-input" id="productImage" accept="image/*">
+      <small class="form-text text-muted">Pilih gambar produk (JPG, PNG, JPEG)</small>
+    </div>
+    <div class="mb-3">
+      <label for="productImages" class="form-label custom-label">Foto Produk 2</label>
+      <input type="file" class="form-control custom-input" id="productImages" accept="image/*">
       <small class="form-text text-muted">Pilih gambar produk (JPG, PNG, JPEG)</small>
     </div>
   </form>
@@ -381,7 +388,8 @@ ini_set('display_errors', 1);
       price: document.getElementById('productPrice').value,
       stock: document.getElementById('productStock').value,
       size: document.getElementById('size').value,
-      image: document.getElementById('productImage').files[0]
+      image: document.getElementById('productImage').files[0],
+      images: document.getElementById('productImages').files[0]
     };
 
     // Buat form data untuk mengirim file gambar
@@ -394,6 +402,9 @@ ini_set('display_errors', 1);
     formData.append('size', productData.size);
     if (productData.image) {
       formData.append('image', productData.image);
+    }
+    if (productData.images) {
+      formData.append('images', productData.images);
     }
 
     // Kirim data ke server

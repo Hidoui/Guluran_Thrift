@@ -201,13 +201,13 @@ ini_set('display_errors', 1);
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/data_pengguna.php">
-            <i class="material-symbols-rounded opacity-5">person</i>
+            <i class="material-symbols-rounded opacity-5">group</i>
             <span class="nav-link-text ms-1">Data Pengguna</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="../pages/data_category.php">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+            <i class="material-symbols-rounded opacity-5">Category</i>
             <span class="nav-link-text ms-1">Data Category</span>
           </a>
         </li>

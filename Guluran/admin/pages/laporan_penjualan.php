@@ -199,13 +199,13 @@
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/data_pengguna.php">
-            <i class="material-symbols-rounded opacity-5">person</i>
+            <i class="material-symbols-rounded opacity-5">group</i>
             <span class="nav-link-text ms-1">Data Pengguna</span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-dark" href="../pages/data_category.php">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
+            <i class="material-symbols-rounded opacity-5">Category</i>
             <span class="nav-link-text ms-1">Data Category</span>
           </a>
         </li>
@@ -250,6 +250,60 @@
       </div>
   <!-- Button to Add Product -->
   
+<!-- Button to trigger the modal -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#searchModal">
+  <i class="fas fa-search"></i> Cari
+</button>
+
+<!-- Modal structure -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="searchModalLabel">Cari Data Tabel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="searchForm">
+          <div class="mb-3">
+            <label for="searchInput" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Nama Produk">
+          </div>
+        </form>
+        <form id="searchForm">
+          <div class="mb-3">
+            <label for="searchInput" class="form-label">Nama Pembeli</label>
+            <input type="text" class="form-control" id="searchInput" placeholder="Nama Pembeli">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-primary" id="searchButton">Cari</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('searchButton').addEventListener('click', function () {
+    const searchValue = document.getElementById('searchInput').value.toLowerCase();
+    const tableRows = document.querySelectorAll('.table tbody tr');
+
+    tableRows.forEach(row => {
+      const rowText = row.textContent.toLowerCase();
+      if (rowText.includes(searchValue)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    // Close the modal after searching
+    const searchModal = bootstrap.Modal.getInstance(document.getElementById('searchModal'));
+    searchModal.hide();
+  });
+</script>
 
   <!-- Table displaying products -->
   <div class="table-wrapper">
