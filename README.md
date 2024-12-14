@@ -1,1 +1,0 @@
-# Guluran_Thrift
