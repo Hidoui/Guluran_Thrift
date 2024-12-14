@@ -110,6 +110,71 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </table>
     </div>
 
+    <div id="detailOrdersModal" class="modal fade" tabindex="-1" aria-labelledby="detailOrdersModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Pesanan</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="list-group">
+              <div class="list-group-item">
+                <strong>Waktu Pemesanan : </strong>
+                <span id="orderDate"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Nama Pembeli : </strong>
+                <span id="username"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Alamat : </strong>
+                <span id="address"></span>, <span id="fullAddress"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Catatan : </strong>
+                <span id="orderNotes"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>No. HP : </strong>
+                <span id="buyerPhone"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Jenis Pembayaran : </strong>
+                <span id="paymentType"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Status Pesanan : </strong>
+                <span id="orderStatus"></span>
+              </div>
+              <div class="list-group-item">
+                <strong>Total Pembayaran : </strong>
+                <span id="totalPayment"></span>
+              </div>
+            </div>
+            <div class="mt-2 fs-5">Daftar Barang</div>
+            <table id="orderItemsTable" class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="px-2">No</th>
+                  <th class="px-2">Nama Barang</th>
+                  <th class="px-2">Harga</th>
+                  <th class="px-2">Jumlah</th>
+                  <th class="px-2">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="orderItemsBody">
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
       function showDetail(btnData) {
