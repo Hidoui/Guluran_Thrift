@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                             <div class="checkout__input__checkbox">
                                 <label for="remember-me">
-                                    Remember Me
+                                    Lupa Password
                                     <input type="checkbox" id="remember-me">
                                     <span class="checkmark"></span>
                                 </label>

@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT ci.cart_item_id, p.name, ci.quantity, p.price, (p.price * ci.quantity) AS total_price 
+$sql = "SELECT ci.cart_item_id, p.name, ci.quantity, p.price, (p.price * ci.quantity) AS total_price, p.product_id 
         FROM cart_items ci
         JOIN products p ON ci.product_id = p.product_id
         JOIN carts c ON ci.cart_id = c.cart_id
@@ -22,8 +22,12 @@ $result = $stmt->get_result();
 $items = [];
 $total = 0;
 while ($row = $result->fetch_assoc()) {
-    $items[] = $row;
-    $total += $row['total_price'];
+    if (!isset($row['product_id']) || $row['product_id'] == null) {
+        echo "Error: Product ID tidak ditemukan pada item cart!";
+    } else {
+        $items[] = $row;
+        $total += $row['total_price'];
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -229,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (!paymentChecked) {
                 alert("Silakan pilih metode pembayaran.");
-                event.preventDefault(); 
+                event.preventDefault();
                 return false;
             }
 
