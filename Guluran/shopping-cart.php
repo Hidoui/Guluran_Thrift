@@ -135,7 +135,7 @@ $cart_empty = count($items) == 0;
                                     <tr>
                                         <td class="product__cart__item">
                                             <div class="product__cart__item__pic">
-                                                <a href="./shop-details.php"><img src="img/products/<?php echo $item['image']; ?>" alt=""></a>
+                                                <a href="./shop-details.php"><img src="admin/pages/uploads/<?php echo $item['image']; ?>" alt=""></a>
                                             </div>
                                             <div class="product__cart__item__text">
                                                 <h5><?php echo $item['name']; ?></h5>

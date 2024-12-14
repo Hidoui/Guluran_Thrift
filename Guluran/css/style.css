@@ -1394,6 +1394,7 @@ ol {
     height: 100%;
     object-fit: contain;
 	position: relative;
+	left: 15%;
 }
 
 .product__details__pic__item a {
@@ -1729,6 +1730,8 @@ ol {
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
 	float: left;
 	margin-right: 30px;
+	width: 60px;
+	height: 60px;
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text {
