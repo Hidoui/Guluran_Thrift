@@ -163,9 +163,9 @@ $cart_empty = count($items) == 0;
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="checkout__order">
-                        <h4 class="order__title">Pesanan Anda</h4>
-                        <ul class="checkout__total__all">
+                    <div class="cart__summary">
+                        <h4 class="summary__title">Keranjang Anda</h4>
+                        <ul class="cart__total__all">
                             <li>Total <span>Rp.<?php echo number_format($total, 0, ',', '.'); ?></span></li>
                         </ul>
                         <a href="<?php echo $cart_empty ? '#' : './checkout.php'; ?>"
