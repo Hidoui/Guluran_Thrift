@@ -174,7 +174,52 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </div>
     </div>
 
-    
+    <div id="editOrderModal" class="modal fade" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Status Pesanan</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="editOrderForm" action="edit_order.php" method="POST">
+            <div class="modal-body">
+              <input type="hidden" name="order_id" id="editOrderId">
+              <div class="list-group">
+                <div class="list-group-item">
+                  <strong>Waktu Pemesanan : </strong>
+                  <input type="text" class="form-control" id="editOrderDate" readonly>
+                </div>
+                <div class="list-group-item">
+                  <strong>Nama Pembeli : </strong>
+                  <input type="text" class="form-control" id="editUsername" readonly>
+                </div>
+                <div class="list-group-item">
+                  <strong>Total Pembayaran : </strong>
+                  <input type="number" class="form-control" id="editTotalAmount" readonly>
+                </div>
+                <div class="list-group-item">
+                  <strong>Jenis Pembayaran : </strong>
+                  <input type="text" class="form-control" id="editPayment" readonly>
+                </div>
+                <div class="list-group-item">
+                  <strong>Status : </strong>
+                  <select class="form-select px-3 border" name="status" id="editStatus">
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Canceled">Canceled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
       function showDetail(btnData) {
