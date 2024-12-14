@@ -87,7 +87,7 @@ $result = $conn->query($sql);
 
                         echo '<div class="col-lg-3 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
                         echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
-                        echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">';
+                        echo '<div class="product__item__pic set-bg" data-setbg="admin/pages/uploads/' . $product_image . '">';
 
                         if ($is_new) {
                             echo '<span class="label">New</span>';

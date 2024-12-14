@@ -137,7 +137,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
                                     <div class="product__thumb__pic set-bg"
-                                        data-setbg="img/product/<?php echo $product['image']; ?>">
+                                        data-setbg="admin/pages/uploads/<?php echo $product['image']; ?>">
+                                    </div>
+                                </a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
+                                    <div class="product__thumb__pic set-bg"
+                                        data-setbg="admin/pages/uploads/<?php echo $product['images']; ?>">
                                     </div>
                                 </a>
                             </li>
@@ -147,7 +152,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img src="img/product/<?php echo $product['image']; ?>" alt="">
+                                    <img src="admin/pages/uploads/<?php echo $product['image']; ?>" alt="">
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="product__details__pic__item">
+                                    <img src="admin/pages/uploads/<?php echo $product['images']; ?>" alt="">
                                 </div>
                             </div>
                         </div>

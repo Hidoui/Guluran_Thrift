@@ -815,7 +815,7 @@ ol {
 }
 
 .product__item__pic {
-	height: 260px;
+	height: 280px;
 	position: relative;
 	background-position: center center;
 }
@@ -1308,7 +1308,7 @@ ol {
 .product__details__pic {
 	text-align: center;
 	background: #f3f2ee;
-	padding: 40px 0 200px;
+	padding: 40px 0 80px;
 	margin-bottom: 60px;
 }
 
@@ -1328,6 +1328,7 @@ ol {
 .product__details__pic .nav-tabs .nav-item .nav-link {
 	padding: 0;
 	display: block;
+	margin-bottom: 25px;
 }
 
 .product__details__pic .nav-tabs .nav-item .nav-link .product__thumb__pic {
@@ -1389,6 +1390,9 @@ ol {
 }
 
 .product__details__pic__item {
+	width: 75%;
+    height: 100%;
+    object-fit: contain;
 	position: relative;
 }
 

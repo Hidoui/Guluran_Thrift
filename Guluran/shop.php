@@ -228,7 +228,7 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
 
                                 echo '<div class="col-lg-4 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
                                 echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
-                                echo '<div class="product__item__pic set-bg" data-setbg="img/product/' . $product_image . '">' .
+                                echo '<div class="product__item__pic set-bg" data-setbg="admin/pages/uploads/' . $product_image . '">' .
                                     ($is_new ? '<span class="label">New</span>' : '') .
                                     ($is_sale ? '<span class="label">Best</span>' : '') .
                                     '<ul class="product__hover">' .
