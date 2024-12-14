@@ -293,9 +293,10 @@ ini_set('display_errors', 1);
           <td><?= $row['price']?></td>
           <td><?= $row['stock']?></td>
           <td class="action-btns">
-            <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
-            <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
-          </td>
+    <a href="edit_product.php?id=<?= $row['product_id'] ?>" class="btn btn-edit">
+        <i class="fas fa-edit"></i> Ubah </a>
+    <button class="btn btn-delete" data-id="<?= $row['product_id'] ?>"><i class="fas fa-trash-alt"></i> Hapus</button>
+        </td>
         </tr>
         <?php 
             $i++;
@@ -306,6 +307,32 @@ ini_set('display_errors', 1);
       </tbody>
     </table>
   </div>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteButtons = document.querySelectorAll('.btn-delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const productId = this.getAttribute('data-id');
+            const confirmDelete = confirm('Apakah Anda yakin ingin menghapus produk ini?');
+            if (confirmDelete) {
+                // Kirim permintaan ke server untuk menghapus produk
+                fetch(`hapus_product.php?id=${productId}`, {
+                    method: 'GET'
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Produk berhasil dihapus!');
+                        location.reload(); // Refresh halaman
+                    } else {
+                        alert('Terjadi kesalahan saat menghapus produk.');
+                    }
+                }).catch(error => console.error('Error:', error));
+            }
+        });
+    });
+});
+</script>
+
 
   <!-- Modal to Add Product -->
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
