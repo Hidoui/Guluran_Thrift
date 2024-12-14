@@ -333,7 +333,103 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- Modal Edit -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Produk</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editForm">
+          <input type="hidden" name="product_id" id="product_id">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Deskripsi</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Kategori</label>
+            <input type="text" class="form-control" id="category" name="category" required>
+          </div>
+          <div class="mb-3">
+            <label for="size" class="form-label">Size</label>
+            <input type="text" class="form-control" id="size" name="size" required>
+          </div>
+          <div class="mb-3">
+            <label for="price" class="form-label">Harga</label>
+            <input type="number" class="form-control" id="price" name="price" required>
+          </div>
+          <div class="mb-3">
+            <label for="stock" class="form-label">Stok</label>
+            <input type="number" class="form-control" id="stock" name="stock" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.btn-edit');
+    const editForm = document.getElementById('editForm');
 
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Ambil data dari tombol
+            const id = this.getAttribute('data-id');
+            const name = this.getAttribute('data-name');
+            const description = this.getAttribute('data-description');
+            const category = this.getAttribute('data-category');
+            const size = this.getAttribute('data-size');
+            const price = this.getAttribute('data-price');
+            const stock = this.getAttribute('data-stock');
+
+            // Isi data ke dalam form modal
+            document.getElementById('product_id').value = id;
+            document.getElementById('name').value = name;
+            document.getElementById('description').value = description;
+            document.getElementById('category').value = category;
+            document.getElementById('size').value = size;
+            document.getElementById('price').value = price;
+            document.getElementById('stock').value = stock;
+        });
+    });
+
+    // Proses Submit Form
+    editForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Mencegah refresh halaman
+
+        // Ambil data form
+        const formData = new FormData(editForm);
+
+        // Kirim data ke server dengan Fetch API
+        fetch('update_product.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Produk berhasil diperbarui!');
+                location.reload(); // Refresh halaman setelah berhasil
+            } else {
+                alert(`Error: ${data.error}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat memperbarui produk.');
+        });
+    });
+});
+
+</script>
   <!-- Modal to Add Product -->
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
