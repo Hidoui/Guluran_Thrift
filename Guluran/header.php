@@ -1,24 +1,27 @@
 <?php
 session_start();
-include('config/db.php');
+$cartCount = 0;
 
 if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+    $role = $_SESSION['role'];
+    include('config/db.php');
 
-    $sql = "SELECT COUNT(*) AS cart_item_count
+    if ($role === 'user') {
+        $user_id = $_SESSION['user_id'];
+
+        $sql = "SELECT COUNT(*) AS cart_item_count
         FROM cart_items ci
         JOIN carts c ON ci.cart_id = c.cart_id
         WHERE c.user_id = ?";
 
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param('i', $user_id);
-        $stmt->execute();
-        $stmt->bind_result($cartCount);
-        $stmt->fetch();
-        $stmt->close();
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $stmt->bind_result($cartCount);
+            $stmt->fetch();
+            $stmt->close();
+        }
     }
-} else {
-    $cartCount = 0;
 }
 ?>
 
@@ -72,6 +75,9 @@ if (isset($_SESSION['user_id'])) {
                                     <i class="bx bx-user" style="color:#111111; font-size: 20px"></i>
                                 </a>
                                 <ul class="dropdown">
+                                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                                        <li><a href="./admin/pages/dashboard.php">Admin</a></li>
+                                    <?php endif; ?>
                                     <li><a href="./account.php">Account</a></li>
                                     <li><a href="./sign-out.php">Sign Out</a></li>
                                 </ul>

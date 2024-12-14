@@ -21,7 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['email'] = $row['email'];
 
             if (strpos($email, '@admin.com') !== false) {
-                header("Location: ./admin/pages/dashboard.php");
+                $_SESSION['role'] = 'admin';
+            } else {
+                $_SESSION['role'] = 'user';
+            }
+
+            if ($_SESSION['role'] === 'admin') {
+                header("Location: index.php");
             } else {
                 header("Location: index.php");
             }
