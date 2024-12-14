@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include "../../config/db.php";
 error_reporting(E_ALL);
@@ -34,316 +33,169 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
-<style>
-  /* Custom CSS */
-  .container {
-    max-width: 1200px;
-    margin: 30px auto;
-  }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    color: #333;
-  }
+<?php include 'sidebar.php'; ?>
 
-  .table th,
-  .table td {
-    vertical-align: middle;
-  }
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 
-  .action-btns button {
-    margin-left: 5px;
-  }
-
-  .btn-detail {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-  .btn-edit {
-    background-color: #ffa500;
-    color: white;
-  }
-
-  .btn-delete {
-    background-color: #f44336;
-    color: white;
-  }
-
-  .btn-add {
-    background-color: #007bff;
-    color: white;
-  }
-
-  .btn-detail:hover {
-    background-color: #45a049;
-  }
-
-  .btn-edit:hover {
-    background-color: #e68900;
-  }
-
-  .btn-delete:hover {
-    background-color: #d32f2f;
-  }
-
-  .btn-add:hover {
-    background-color: #0069d9;
-  }
-
-  .pagination .page-item .page-link {
-    color: #333;
-  }
-
-  .pagination .page-item.active .page-link {
-    background-color: #4CAF50;
-    border-color: #4CAF50;
-    color: white;
-  }
-
-  .pagination .page-item:hover .page-link {
-    background-color: #45a049;
-    border-color: #45a049;
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-  }
-
-  .btn-add-container {
-    text-align: right;
-    margin-bottom: 20px;
-  }
-</style>
-
-<body class="g-sidenav-show  bg-gray-100">
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
-    <div class="sidenav-header">
-      <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand px-4 py-3 m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="../assets/img/gulur.jpg" class="navbar-brand-img" width="35%" height="50" alt="main_logo">
-        <span class="ms-1 text-sm text-dark">GULURAN</span>
-      </a>
+  <!-- Navbar -->
+  <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+          <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="dashboard.php">Dashboard</a></li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Data Pengguna</li>
+        </ol>
+      </nav>
     </div>
-    <hr class="horizontal dark mt-0 mb-2">
-    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/dashboard.php">
-            <i class="material-symbols-rounded opacity-5">dashboard</i>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/data_product.php">
-            <i class="material-symbols-rounded opacity-5">Box</i>
-            <span class="nav-link-text ms-1">Data Product</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark " href="../pages/data_pesanan.php">
-            <i class="material-symbols-rounded opacity-5">receipt_long</i>
-            <span class="nav-link-text ms-1">Data Pesanan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/laporan_penjualan.php">
-            <i class="material-symbols-rounded opacity-5">view_in_ar</i>
-            <span class="nav-link-text ms-1">Laporan Penjualan</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active bg-gradient-dark text-white" href="../pages/data_pengguna.php">
-            <i class="material-symbols-rounded opacity-5">group</i>
-            <span class="nav-link-text ms-1">Data Pengguna</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/data_category.php">
-            <i class="material-symbols-rounded opacity-5">Category</i>
-            <span class="nav-link-text ms-1">Data Category</span>
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/profile.html">
-            <i class="material-symbols-rounded opacity-5">person</i>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="../pages/sign-Out.html">
-            <i class="material-symbols-rounded opacity-5">login</i>
-            <span class="nav-link-text ms-1">Sign Out</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </aside>
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  </nav>
+  <!-- End Navbar -->
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
-      <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="dashboard.php">Dashboard</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Data Pengguna</li>
-          </ol>
-        </nav>
-      </div>
-    </nav>
-    <!-- End Navbar -->
-
-    <div class="container-fluid py-2">
-      <div class="row">
-        <div class="ms-3">
-          <h3 class="mb-0 h4 font-weight-bolder">Data Pengguna</h3>
-        </div>
+  <div class="container-fluid py-2">
+    <div class="row">
+      <div class="ms-3">
+        <h3 class="mb-0 h4 font-weight-bolder">Data Pengguna</h3>
       </div>
     </div>
+  </div>
 
-    <div class="table-wrapper">
-      <table class="table align-items-center mb-0">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (!empty($users)) : ?>
-            <?php foreach ($users as $row) : ?>
-              <tr>
-                <td><?= htmlspecialchars($row['user_id']); ?></td>
-                <td><?= htmlspecialchars($row['username']); ?></td>
-                <td><?= htmlspecialchars($row['email']); ?></td>
-                <td>
-                  <button data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-edit btn-warning btn-sm" data-id="<?= $row['user_id']; ?>" data-username="<?= $row['username'] ?>" data-email="<?= $row['email'] ?>" onclick="setEdit(this)">Ubah</button>
-                  <button class="btn btn-delete btn-danger btn-sm" data-id="<?= $row['user_id']; ?>" onclick="deleteUser(<?= $row['user_id']; ?>)">Hapus</button>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else : ?>
+  <div class="table-wrapper">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Email</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php if (!empty($users)) : ?>
+          <?php foreach ($users as $row) : ?>
             <tr>
-              <td colspan="5" class="text-center">Tidak ada data pengguna.</td>
+              <td><?= htmlspecialchars($row['user_id']); ?></td>
+              <td><?= htmlspecialchars($row['username']); ?></td>
+              <td><?= htmlspecialchars($row['email']); ?></td>
+              <td>
+                <button data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-edit btn-warning btn-sm" data-id="<?= $row['user_id']; ?>" data-username="<?= $row['username'] ?>" data-email="<?= $row['email'] ?>" onclick="setEdit(this)">Ubah</button>
+                <button class="btn btn-delete btn-danger btn-sm" data-id="<?= $row['user_id']; ?>" onclick="deleteUser(<?= $row['user_id']; ?>)">Hapus</button>
+              </td>
             </tr>
-          <?php endif; ?>
-        </tbody>
-      </table>
-    </div>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <tr>
+            <td colspan="5" class="text-center">Tidak ada data pengguna.</td>
+          </tr>
+        <?php endif; ?>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- Modal Edit User -->
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editUserModalLabel">Edit Pengguna</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="editUserForm">
-              <div class="mb-3">
-                <label for="editUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="editUsername" required>
-              </div>
-              <div class="mb-3">
-                <label for="editEmail" class="form-label">Email</label>
-                <input type="email" class="form-control" id="editEmail" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Simpan</button>
-            </form>
-          </div>
+  <!-- Modal Edit User -->
+  <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUserModalLabel">Edit Pengguna</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editUserForm">
+            <div class="mb-3">
+              <label for="editUsername" class="form-label">Username</label>
+              <input type="text" class="form-control" id="editUsername" required>
+            </div>
+            <div class="mb-3">
+              <label for="editEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="editEmail" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      function setEdit(btnData) {
-        let username = btnData.getAttribute('data-username');
-        let email = btnData.getAttribute('data-email');
-        document.getElementById('editUsername').value = username;
-        document.getElementById('editEmail').value = email;
+  <script>
+    function setEdit(btnData) {
+      let username = btnData.getAttribute('data-username');
+      let email = btnData.getAttribute('data-email');
+      document.getElementById('editUsername').value = username;
+      document.getElementById('editEmail').value = email;
+    }
+    // fungsi mengubah isi tabel 
+    function editUser(user_id) {
+      // Ambil nilai input dari form
+      const username = document.getElementById('editUsername').value;
+      const email = document.getElementById('editEmail').value;
+
+      // Verifikasi bahwa input tidak kosong
+      if (username === '' || email === '') {
+        alert('Nama dan Email tidak boleh kosong!');
+        return;
       }
-      // fungsi mengubah isi tabel 
-      function editUser(user_id) {
-        // Ambil nilai input dari form
-        const username = document.getElementById('editUsername').value;
-        const email = document.getElementById('editEmail').value;
 
-        // Verifikasi bahwa input tidak kosong
-        if (username === '' || email === '') {
-          alert('Nama dan Email tidak boleh kosong!');
-          return;
-        }
+      // Debugging: Pastikan data yang akan dikirim sudah benar
+      console.log("User ID:", user_id);
+      console.log("Username:", username);
+      console.log("Email:", email);
 
-        // Debugging: Pastikan data yang akan dikirim sudah benar
-        console.log("User ID:", user_id);
-        console.log("Username:", username);
-        console.log("Email:", email);
+      const confirmUpdate = confirm('Apakah Anda yakin ingin mengubah data pengguna ini?');
 
-        const confirmUpdate = confirm('Apakah Anda yakin ingin mengubah data pengguna ini?');
+      if (confirmUpdate) {
+        // Mengirim data update ke server
+        const formData = new FormData();
+        formData.append('user_id', user_id);
+        formData.append('username', username);
+        formData.append('email', email);
 
-        if (confirmUpdate) {
-          // Mengirim data update ke server
-          const formData = new FormData();
-          formData.append('user_id', user_id);
-          formData.append('username', username);
-          formData.append('email', email);
-
-          fetch('update_user.php', {
-              method: 'POST',
-              body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-              console.log(data); // Debugging: tampilkan data yang diterima dari server
-              if (data.success) {
-                alert('Data pengguna berhasil diubah!');
-                location.reload(); // Refresh halaman setelah berhasil update
-              } else {
-                alert('Terjadi kesalahan saat mengubah data pengguna.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
+        fetch('update_user.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data); // Debugging: tampilkan data yang diterima dari server
+            if (data.success) {
+              alert('Data pengguna berhasil diubah!');
+              location.reload(); // Refresh halaman setelah berhasil update
+            } else {
               alert('Terjadi kesalahan saat mengubah data pengguna.');
-            });
-        }
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengubah data pengguna.');
+          });
       }
+    }
 
-      // Fungsi untuk menghapus pengguna
-      function deleteUser(user_id) {
-        const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
+    // Fungsi untuk menghapus pengguna
+    function deleteUser(user_id) {
+      const confirmDelete = confirm('Apakah Anda yakin ingin menghapus pengguna ini?');
 
-        if (confirmDelete) {
-          fetch(`hapus_user.php?id=${user_id}`, {
-              method: 'GET'
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                alert('Pengguna berhasil dihapus!');
-                location.reload();
-              } else {
-                alert('Terjadi kesalahan saat menghapus pengguna.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
+      if (confirmDelete) {
+        fetch(`hapus_user.php?id=${user_id}`, {
+            method: 'GET'
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Pengguna berhasil dihapus!');
+              location.reload();
+            } else {
               alert('Terjadi kesalahan saat menghapus pengguna.');
-            });
-        }
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat menghapus pengguna.');
+          });
       }
-    </script>
+    }
+  </script>
 
-  </main>
+</main>
 </body>
 
 </html>
