@@ -121,7 +121,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
             <div class="list-group">
               <div class="list-group-item">
                 <strong>Waktu Pemesanan : </strong>
-                <span id="orderDate"></span>
+                <span id="created_at"></span>
               </div>
               <div class="list-group-item">
                 <strong>Nama Pembeli : </strong>
@@ -133,23 +133,23 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
               </div>
               <div class="list-group-item">
                 <strong>Catatan : </strong>
-                <span id="orderNotes"></span>
+                <span id="notes"></span>
               </div>
               <div class="list-group-item">
                 <strong>No. HP : </strong>
-                <span id="buyerPhone"></span>
+                <span id="phone"></span>
               </div>
               <div class="list-group-item">
                 <strong>Jenis Pembayaran : </strong>
-                <span id="paymentType"></span>
+                <span id="payment"></span>
               </div>
               <div class="list-group-item">
                 <strong>Status Pesanan : </strong>
-                <span id="orderStatus"></span>
+                <span id="status"></span>
               </div>
               <div class="list-group-item">
                 <strong>Total Pembayaran : </strong>
-                <span id="totalPayment"></span>
+                <span id="total"></span>
               </div>
             </div>
             <div class="mt-2 fs-5">Daftar Barang</div>
@@ -227,15 +227,14 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
           .then(response => response.json())
           .then(data => {
             if (data.order) {
-              document.getElementById('orderDate').textContent = data.order.created_at;
+              document.getElementById('created_at').textContent = data.order.created_at;
               document.getElementById('username').textContent = data.order.username;
-              document.getElementById('fullAddress').textContent = data.order.alamat_lengkap;
               document.getElementById('address').textContent = data.order.address;
-              document.getElementById('orderNotes').textContent = data.order.note;
-              document.getElementById('buyerPhone').textContent = data.order.phone;
-              document.getElementById('paymentType').textContent = data.order.payment;
-              document.getElementById('orderStatus').textContent = data.order.status;
-              document.getElementById('totalPayment').textContent = data.order.total_amount;
+              document.getElementById('notes').textContent = data.order.note;
+              document.getElementById('phone').textContent = data.order.phone;
+              document.getElementById('payment').textContent = data.order.payment;
+              document.getElementById('status').textContent = data.order.status;
+              document.getElementById('total').textContent = data.order.total_amount;
 
               const orderItemsBody = document.getElementById('orderItemsBody');
               orderItemsBody.innerHTML = '';
@@ -251,7 +250,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 `;
                 orderItemsBody.appendChild(row);
               });
-            } else {
+            } else {              
               alert('Pesanan tidak ditemukan');
             }
           })
