@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT ci.cart_item_id, p.name, ci.quantity, p.price, (p.price * ci.quantity) AS total_price 
+$sql = "SELECT ci.cart_item_id, p.name, ci.quantity, p.price, (p.price * ci.quantity) AS total_price, p.product_id 
         FROM cart_items ci
         JOIN products p ON ci.product_id = p.product_id
         JOIN carts c ON ci.cart_id = c.cart_id
@@ -22,8 +22,12 @@ $result = $stmt->get_result();
 $items = [];
 $total = 0;
 while ($row = $result->fetch_assoc()) {
-    $items[] = $row;
-    $total += $row['total_price'];
+    if (!isset($row['product_id']) || $row['product_id'] == null) {
+        echo "Error: Product ID tidak ditemukan pada item cart!";
+    } else {
+        $items[] = $row;
+        $total += $row['total_price'];
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -54,6 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $delete_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE user_id = ?)";
         $stmt = $conn->prepare($delete_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+
+        $delete_cart_sql = "DELETE FROM carts WHERE user_id = ?";
+        $stmt = $conn->prepare($delete_cart_sql);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
 
@@ -169,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         Bank Transfer
-                                        <input type="radio" name="payment" id="payment" value="Bank" required>
+                                        <input type="radio" name="payment" id="payment" value="Bank Transfer" required>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
@@ -206,14 +215,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script>
         function confirmOrder(event) {
+            var paymentChecked = document.querySelector('input[name="payment"]:checked');
+
+            var fullname = document.querySelector('input[name="fullname"]').value;
+            var province = document.querySelector('input[name="province"]').value;
+            var city = document.querySelector('input[name="city"]').value;
+            var district = document.querySelector('input[name="district"]').value;
+            var postal_code = document.querySelector('input[name="postal_code"]').value;
+            var address = document.querySelector('input[name="address"]').value;
+            var phone = document.querySelector('input[name="phone"]').value;
+
+            if (!fullname || !province || !city || !district || !postal_code || !address || !phone) {
+                alert("Silakan lengkapi data pengiriman.");
+                event.preventDefault();
+                return false;
+            }
+
+            if (!paymentChecked) {
+                alert("Silakan pilih metode pembayaran.");
+                event.preventDefault();
+                return false;
+            }
+
             var userConfirmation = confirm("Apakah Anda yakin ingin melanjutkan pesanan?");
             if (!userConfirmation) {
                 event.preventDefault();
             }
         }
 
-        document.querySelector('form').addEventListener('submit', confirmOrder);
+        document.querySelector('.site-btn').addEventListener('click', confirmOrder);
     </script>
+
 </body>
 
 </html>
