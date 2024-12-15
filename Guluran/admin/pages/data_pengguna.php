@@ -185,7 +185,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
             if (data.success) {
               alert('Pengguna berhasil dihapus!');
               location.reload();
-            } else {
+            } else { 
               alert('Terjadi kesalahan saat menghapus pengguna.');
             }
           })

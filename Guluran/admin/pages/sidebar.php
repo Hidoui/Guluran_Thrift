@@ -241,7 +241,7 @@ ini_set('display_errors', 1);
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-dark font-weight-bolder opacity-5">Account pages</h6>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo ($current_page == 'sign-out.php') ? 'active bg-gradient-dark text-white' : 'text-dark'; ?>" href="sign-out.php">
+                    <a class="nav-link <?php echo ($current_page == 'sign-out.php') ? 'active bg-gradient-dark text-white' : 'text-dark'; ?>" href="/Guluran_Thrift/Guluran/sign-out.php">
                         <i class="material-symbols-rounded opacity-5">login</i>
                         <span class="nav-link-text ms-1">Sign Out</span>
                     </a>
