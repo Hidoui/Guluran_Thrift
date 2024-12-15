@@ -58,7 +58,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </div>
     </div>
   </div>
-<!-- tabel -->
+  <!-- tabel -->
   <div class="table-wrapper">
     <table class="table align-items-center mb-0">
       <thead>
@@ -77,7 +77,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
               <td><?= htmlspecialchars($row['username']); ?></td>
               <td><?= htmlspecialchars($row['email']); ?></td>
               <td>
-                <button data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-edit btn-warning btn-sm" data-id="<?= $row['user_id']; ?>" data-username="<?= $row['username'] ?>" data-email="<?= $row['email'] ?>" onclick="setEdit(this)">Ubah</button>
+                <button data-bs-toggle="modal" data-bs-target="#editUserModal" class="btn btn-edit btn-warning btn-sm" data-user-id="<?= $row['user_id']; ?>" data-username="<?= $row['username'] ?>" data-email="<?= $row['email'] ?>" onclick="setEdit(this)">Ubah</button>
                 <button class="btn btn-delete btn-danger btn-sm" data-id="<?= $row['user_id']; ?>" onclick="deleteUser(<?= $row['user_id']; ?>)">Hapus</button>
               </td>
             </tr>
@@ -100,7 +100,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="editUserForm">
+          <form id="editUserForm" onsubmit="handleEditUser(event, user_id)">
             <div class="mb-3">
               <label for="editUsername" class="form-label">Username</label>
               <input type="text" class="form-control" id="editUsername" required>
@@ -127,7 +127,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
       document.getElementById('editEmail').value = email;
     }
 
-    function handleEditUser (event, userId) {
+    function handleEditUser(event, userId) {
       event.preventDefault(); // Prevent default form submission
 
       // Ambil nilai input dari form
@@ -149,7 +149,7 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
         formData.append('username', username);
         formData.append('email', email);
 
-        fetch('update_user.php', {
+        fetch('update_users.php', {
             method: 'POST',
             body: formData
           })
@@ -158,6 +158,8 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
             console.log(data); // Debugging: tampilkan data yang diterima dari server
             if (data.success) {
               alert('Data pengguna berhasil diubah!');
+              const modal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+              modal.hide(); // Menutup modal
               location.reload(); // Refresh halaman setelah berhasil update
             } else {
               alert('Terjadi kesalahan saat mengubah data pengguna.');
@@ -194,7 +196,6 @@ $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
       }
     }
   </script>
-
 </main>
 </body>
 

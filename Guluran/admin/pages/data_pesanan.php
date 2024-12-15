@@ -129,11 +129,11 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
               </div>
               <div class="list-group-item">
                 <strong>Alamat : </strong>
-                <span id="address"></span>, <span id="fullAddress"></span>
+                <span id="address"></span> <span id="fullAddress"></span>
               </div>
               <div class="list-group-item">
                 <strong>Catatan : </strong>
-                <span id="notes"></span>
+                <span id="note"></span>
               </div>
               <div class="list-group-item">
                 <strong>No. HP : </strong>
@@ -204,15 +204,15 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <div class="list-group-item">
                   <strong>Status : </strong>
                   <select class="form-select px-3 border" name="status" id="editStatus">
-                    <option value="Pending">Pending</option>
-                    <option value="Completed">Completed</option>
-                    <option value="Canceled">Canceled</option>
+                    <option value="Pending">Proses</option>
+                    <option value="Completed">Selesai</option>
+                    <option value="Canceled">Batal</option>
                   </select>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
               <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
             </div>
           </form>
@@ -223,18 +223,18 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
       function showDetail(btnData) {
-        fetch('get_orders.php?id=' + btnData.getAttribute('data-id'))
+        fetch('get_order.php?id=' + btnData.getAttribute('data-id'))
           .then(response => response.json())
           .then(data => {
             if (data.order) {
               document.getElementById('created_at').textContent = data.order.created_at;
               document.getElementById('username').textContent = data.order.username;
               document.getElementById('address').textContent = data.order.address;
-              document.getElementById('notes').textContent = data.order.note;
+              document.getElementById('note').textContent = data.order.note;
               document.getElementById('phone').textContent = data.order.phone;
               document.getElementById('payment').textContent = data.order.payment;
               document.getElementById('status').textContent = data.order.status;
-              document.getElementById('total').textContent = data.order.total_amount;
+              document.getElementById('total').textContent = data.order.total;
 
               const orderItemsBody = document.getElementById('orderItemsBody');
               orderItemsBody.innerHTML = '';
@@ -258,14 +258,14 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
       };
 
       function editOrder(btnData) {
-        fetch('get_orders.php?id=' + btnData.getAttribute('data-id'))
+        fetch('get_order.php?id=' + btnData.getAttribute('data-id'))
           .then(response => response.json())
           .then(data => {
             if (data.order) {
               document.getElementById('editOrderId').value = data.order.order_id;
               document.getElementById('editOrderDate').value = data.order.created_at;
               document.getElementById('editUsername').value = data.order.username;
-              document.getElementById('editTotalAmount').value = data.order.total_amount;
+              document.getElementById('editTotalAmount').value = data.order.total;
               document.getElementById('editPayment').value = data.order.payment;
               document.getElementById('editStatus').value = data.order.status;
             } else {
