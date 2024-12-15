@@ -81,8 +81,14 @@ ini_set('display_errors', 1);
               <td><?= $i ?></td>
               <td><?= $row['category_name'] ?></td>
               <td class="action-btns">
-                <button class="btn btn-edit"><i class="fas fa-edit"></i> Ubah</button>
-                <button class="btn btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
+              <button 
+            class="btn btn-edit btn-primary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editCategoryModal" 
+            data-id="<?= $row['category_id'] ?>" 
+            data-category="<?= htmlspecialchars($row['category_name']) ?>">
+            <i class="fas fa-edit"></i> Ubah
+          </button>
               </td>
             </tr>
         <?php
@@ -94,6 +100,34 @@ ini_set('display_errors', 1);
       </tbody>
     </table>
   </div>
+
+
+
+<!-- Modal Category -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCategoryModalLabel">Edit Kategori</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editCategoryForm">
+          <input type="hidden" id="categoryId" name="category_id">
+          <div class="form-group">
+            <label for="categoryName">Nama Kategori</label>
+            <input type="text" class="form-control" id="categoryName" name="category_name" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" id="saveCategoryChanges">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <!-- Modal to Add Product -->
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -158,6 +192,52 @@ ini_set('display_errors', 1);
       })
       .catch(error => console.error('Error:', error));
   });
+
+
+//ubah category
+  document.addEventListener('DOMContentLoaded', function () {
+  const editModal = document.getElementById('editModal');
+  const categoryIdInput = document.getElementById('categoryId');
+  const categoryNameInput = document.getElementById('categoryName');
+
+  // Event listener untuk tombol "Ubah"
+  document.querySelectorAll('.btn-edit').forEach(button => {
+    button.addEventListener('click', function () {
+      const categoryId = this.getAttribute('data-id');
+      const categoryName = this.getAttribute('data-category');
+
+      // Set nilai pada form modal
+      categoryIdInput.value = categoryId;
+      categoryNameInput.value = categoryName;
+    });
+  });
+
+  // Event listener untuk tombol simpan
+  document.getElementById('saveCategoryChanges').addEventListener('click', function () {
+    const formData = new FormData(document.getElementById('editCategoryForm'));
+
+    fetch('edit_category.php', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Data berhasil diperbarui');
+          location.reload(); // Reload halaman setelah update
+        } else {
+          alert('Gagal memperbarui data');
+        }
+      })
+      .catch(error => {
+    console.error('Error:', error);
+    alert(`Terjadi kesalahan: ${error}`);
+});
+
+  });
+});
+
+
 </script>
 </body>
 

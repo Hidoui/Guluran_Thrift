@@ -122,7 +122,6 @@ ini_set('display_errors', 1);
           <th>Harga</th>
           <th>Nama Pembeli</th>
           <th>Status</th>
-          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -136,19 +135,12 @@ ini_set('display_errors', 1);
             <tr>
               <td><?= $i ?></td>
               <td><?= $row['order_id'] ?></td>
-              <td><?= $row['sale_date'] ?></td>
+              <td><?= $row['created_at'] ?></td>
               <td><?= $row['name'] ?></td>
               <td><?= $row['category_name'] ?></td>
               <td><?= $row['total_price'] ?></td>
-              <td><?= $row['full_name'] ?></td>
+              <td><?= $row['username'] ?></td>
               <td>Selesai</td>
-              <td class="action-btns">
-                <button class="btn btn-detail"><i class="fas fa-eye"></i> Detail</button>
-              <td class="action-btns">
-                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editConfirmModal"><i class="fas fa-edit"></i> Ubah</button>
-                <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i> Hapus</button>
-              </td>
-              </td>
             </tr>
         <?php
             $i++;
