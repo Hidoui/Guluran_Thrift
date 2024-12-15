@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
   // Query untuk mengambil data berdasarkan ID
   $query = "SELECT 
         orders.order_id, orders.created_at, orders.note, 
-        orders.address, orders.phone, orders.payment, orders.status, orders.total_amount, 
+        orders.address, orders.phone, orders.payment, orders.status, orders.total, 
         users.username, 
         CONCAT(orders.province, ', ', orders.city, ', ', orders.district, ', Kode Pos : ', orders.postal_code) AS alamat_lengkap,
         products.name AS product_name,
@@ -38,7 +38,7 @@ if (isset($_GET['id'])) {
         'phone' => $row['phone'],
         'payment' => $row['payment'],
         'status' => $row['status'],
-        'total_amount' => $row['total_amount']
+        'total' => $row['total']
       ];
       $orderItems[] = [
         'product_name' => $row['product_name'],
