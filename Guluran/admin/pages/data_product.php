@@ -1,7 +1,6 @@
 <?php
-
-  include "../../config/db.php";
-  error_reporting(E_ALL);
+include "../../config/db.php";
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 
@@ -95,8 +94,20 @@ ini_set('display_errors', 1);
           <td><?= $row['price']?></td>
           <td><?= $row['stock']?></td>
           <td class="action-btns">
-    <a href="edit_product.php?id=<?= $row['product_id'] ?>" class="btn btn-edit">
-        <i class="fas fa-edit"></i> Ubah </a>
+          <button 
+            class="btn btn-edit btn-primary" 
+            data-bs-toggle="modal" 
+            data-bs-target="#editProductModal" 
+            data-id="<?= $row['product_id'] ?>" 
+            data-name="<?= htmlspecialchars($row['name']) ?>" 
+            data-description="<?= htmlspecialchars($row['description']) ?>" 
+            data-category="<?= $row['category_id'] ?>" 
+            data-size="<?= htmlspecialchars($row['size']) ?>" 
+            data-stock="<?= $row['stock'] ?>" 
+            data-price="<?= $row['price'] ?>" 
+            data-image="<?= htmlspecialchars($row['image']) ?>">
+            Ubah
+          </button>
     <button class="btn btn-delete" data-id="<?= $row['product_id'] ?>"><i class="fas fa-trash-alt"></i> Hapus</button>
         </td>
         </tr>
@@ -158,15 +169,130 @@ ini_set('display_errors', 1);
 </div>
 
 <!-- Add custom styles -->
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      <button type="button" class="btn btn-success" id="saveProductBtn">Simpan</button>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</main>
+
+  <!-- Modal to Edit Product -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="editProductModalLabel">Edit Data Produk</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProductForm">
+          <input type="hidden" id="editProductId">
+          <div class="mb-3">
+            <label for="editProductName" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="editProductName" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductDescription" class="form-label">Deskripsi</label>
+            <textarea class="form-control" id="editProductDescription" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="editProductCategory" class="form-label">Kategori</label>
+            <input type="text" class="form-control" id="editProductCategory" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductPrice" class="form-label">Harga</label>
+            <input type="text" class="form-control" id="editProductPrice" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductStock" class="form-label">Stok</label>
+            <input type="number" class="form-control" id="editProductStock" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductSize" class="form-label">Ukuran</label>
+            <input type="text" class="form-control" id="editProductSize" required>
+          </div>
+          <div class="mb-3">
+            <label for="editProductImage" class="form-label">Foto Produk 1</label>
+            <input type="file" class="form-control" id="editProductImage" accept="image/*">
+          </div>
+          <div class="mb-3">
+            <label for="editProductImages" class="form-label">Foto Produk 2</label>
+            <input type="file" class="form-control" id="editProductImages" accept="image/*">
+          </div>
+        </form>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-success" id="saveProductBtn">Simpan</button>
+        <button type="button" class="btn btn-primary" id="updateProductBtn">Simpan Perubahan</button>
       </div>
     </div>
   </div>
 </div>
-    </div>
-  </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.btn-edit');
+    editButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Ambil data dari atribut tombol
+        const productId = this.getAttribute('data-id');
+        const productName = this.getAttribute('data-name');
+        const productDescription = this.getAttribute('data-description');
+        const productCategory = this.getAttribute('data-category');
+        const productPrice = this.getAttribute('data-price');
+        const productStock = this.getAttribute('data-stock');
+        const productSize = this.getAttribute('data-size');
+
+        // Isi data ke dalam form modal
+        document.getElementById('editProductId').value = productId;
+        document.getElementById('editProductName').value = productName;
+        document.getElementById('editProductDescription').value = productDescription;
+        document.getElementById('editProductCategory').value = productCategory;
+        document.getElementById('editProductPrice').value = productPrice;
+        document.getElementById('editProductStock').value = productStock;
+        document.getElementById('editProductSize').value = productSize;
+      });
+    });
+
+    // Event untuk menyimpan perubahan
+    document.getElementById('updateProductBtn').addEventListener('click', function () {
+      const formData = new FormData();
+      formData.append('id', document.getElementById('editProductId').value);
+      formData.append('name', document.getElementById('editProductName').value);
+      formData.append('description', document.getElementById('editProductDescription').value);
+      formData.append('category', document.getElementById('editProductCategory').value);
+      formData.append('price', document.getElementById('editProductPrice').value);
+      formData.append('stock', document.getElementById('editProductStock').value);
+      formData.append('size', document.getElementById('editProductSize').value);
+
+      const image = document.getElementById('editProductImage').files[0];
+      const images = document.getElementById('editProductImages').files[0];
+      if (image) formData.append('image', image);
+      if (images) formData.append('images', images);
+
+      fetch('edit_product.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Produk berhasil diperbarui!');
+            location.reload();
+          } else {
+            alert('Gagal memperbarui produk: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Terjadi kesalahan saat memperbarui produk.');
+        });
+    });
+  });
+</script>
   
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
@@ -193,6 +319,7 @@ ini_set('display_errors', 1);
       image: document.getElementById('productImage').files[0],
       images: document.getElementById('productImages').files[0]
     };
+    console.log(productData);
 
     // Buat form data untuk mengirim file gambar
     const formData = new FormData();
@@ -211,8 +338,8 @@ ini_set('display_errors', 1);
 
     // Kirim data ke server
     fetch('save_product.php', {
-  method: 'POST',
-  body: formData
+    method: 'POST',
+    body: formData
 })
   .then(response => {
     if (!response.ok) {
@@ -249,8 +376,9 @@ ini_set('display_errors', 1);
             if (confirmDelete) {
                 // Kirim permintaan ke server untuk menghapus produk
                 fetch(`hapus_product.php?id=${productId}`, {
-                    method: 'GET',
+                  method: 'GET',
                 })
+
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -269,5 +397,4 @@ ini_set('display_errors', 1);
     });
 });
 </script>
-
 </html>

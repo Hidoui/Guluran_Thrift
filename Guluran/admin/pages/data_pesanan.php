@@ -84,7 +84,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <td><?= htmlspecialchars($row['order_id']); ?></td>
                 <td><?= htmlspecialchars($row['created_at']); ?></td>
                 <td><?= htmlspecialchars($row['username']); ?></td>
-                <td>Rp. <?= htmlspecialchars($row['total']); ?></td>
+                <td>Rp. <?= htmlspecialchars($row['total_amount']); ?></td>
                 <td><?= htmlspecialchars($row['payment']); ?></td>
                 <td><span class="badge <?= $statusColor ?>"><?= htmlspecialchars($row['status']); ?></span></td>
                 <td class="d-flex gap-2">
@@ -149,7 +149,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
               </div>
               <div class="list-group-item">
                 <strong>Total Pembayaran : </strong>
-                <span id="total"></span>
+                <span id="total_amount"></span>
               </div>
             </div>
             <div class="mt-2 fs-5">Daftar Barang</div>
@@ -234,7 +234,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
               document.getElementById('phone').textContent = data.order.phone;
               document.getElementById('payment').textContent = data.order.payment;
               document.getElementById('status').textContent = data.order.status;
-              document.getElementById('total').textContent = data.order.total;
+              document.getElementById('total_amount').textContent = data.order.total_amount;
 
               const orderItemsBody = document.getElementById('orderItemsBody');
               orderItemsBody.innerHTML = '';
@@ -265,7 +265,7 @@ $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
               document.getElementById('editOrderId').value = data.order.order_id;
               document.getElementById('editOrderDate').value = data.order.created_at;
               document.getElementById('editUsername').value = data.order.username;
-              document.getElementById('editTotalAmount').value = data.order.total;
+              document.getElementById('editTotalAmount').value = data.order.total_amount;
               document.getElementById('editPayment').value = data.order.payment;
               document.getElementById('editStatus').value = data.order.status;
             } else {
