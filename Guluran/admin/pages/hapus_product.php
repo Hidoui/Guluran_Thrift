@@ -1,15 +1,25 @@
 <?php
-include '../../config/db.php'; // Pastikan file koneksi sudah ada
+include "../../config/db.php"; // Sesuaikan dengan jalur file koneksi Anda
+
+header('Content-Type: application/json');
 
 if (isset($_GET['id'])) {
-    $productId = intval($_GET['id']);
-    $sql = "DELETE FROM products WHERE product_id = $productId";
-    if ($conn->query($sql) === TRUE) {
-        echo json_encode(['success' => true]);
+    $id = intval($_GET['id']); // Validasi ID untuk keamanan
+    
+    $sql = "DELETE FROM products WHERE product_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true, 'message' => 'Produk berhasil dihapus.']);
     } else {
-        echo json_encode(['success' => false, 'error' => $conn->error]);
+        echo json_encode(['success' => false, 'message' => 'Gagal menghapus produk.']);
     }
+
+    $stmt->close();
 } else {
-    echo json_encode(['success' => false, 'error' => 'ID tidak ditemukan.']);
+    echo json_encode(['success' => false, 'message' => 'ID produk tidak ditemukan.']);
 }
+
+$conn->close();
 ?>
