@@ -73,43 +73,51 @@ $result = $conn->query($sql);
                         $product_id = $row['product_id'];
                         $product_name = $row['name'];
                         $product_description = $row['description'];
+                        $stock = $row['stock'];
                         $product_price = $row['price'];
                         $product_image = $row['image'];
                         $created_at = $row['created_at'];
 
                         $time_diff = strtotime('now') - strtotime($created_at);
-                        $is_new = ($time_diff <= 3600);
-
-                        $is_sale = ($product_price > 100000);
+                        $is_new = ($time_diff <= 86400);
+                        $is_sale = ($product_price > 199999);
 
                         $new_class = $is_new ? 'new-arrivals' : '';
                         $sale_class = $is_sale ? 'best-sellers' : '';
+                        $sold_class = ($stock == 0) ? 'sold' : '';
+                        $label_text = ($stock == 0) ? 'Sold' : ($is_new ? 'New' : ($is_sale ? 'Best' : ''));
 
                         echo '<div class="col-lg-3 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
-                        echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
+                        echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . ' ' . $sold_class . '">';
                         echo '<div class="product__item__pic set-bg" data-setbg="admin/pages/uploads/' . $product_image . '">';
 
-                        if ($is_new) {
+                        if ($stock == 0) {
+                            echo '<span class="label">Sold</span>';
+                        } elseif ($is_new) {
                             echo '<span class="label">New</span>';
                         }
 
-                        if ($is_sale) {
+                        if ($stock == 0) {
+                            echo '<span class="label">Sold</span>';
+                        } elseif ($is_sale) {
                             echo '<span class="label">Best</span>';
                         }
 
                         echo '<ul class="product__hover">';
-                        echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
+                        if ($stock > 0) {
+                            echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
+                        }
                         echo '</ul>';
                         echo '</div>';
                         echo '<div class="product__item__text">';
                         echo '<h5>' . $product_name . '</h5>';
-                        echo '<h6>Rp.' . number_format($product_price, 0, ',', '.') . '</h6>';
+                        echo '<h6>Rp' . number_format($product_price, 0, ',', '.') . '</h6>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
                     }
                 } else {
-                    echo "No products found";
+                    echo "Produk tidak ditemukan";
                 }
                 ?>
             </div>

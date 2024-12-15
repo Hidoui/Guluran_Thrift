@@ -10,18 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $agree_terms = isset($_POST['agree_terms']) ? 1 : 0;
 
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
-        $error_message = "All fields are required!";
+        $error_message = "Silahkan lengkapi data pengguna!";
     } elseif ($password !== $confirm_password) {
-        $error_message = "Passwords do not match!";
+        $error_message = "Password dan Konfirmasi Password tidak sesuai!";
     } elseif (!$agree_terms) {
-        $error_message = "You must agree to the terms and conditions!";
+        $error_message = "Anda harus menyetujui syarat dan ketentuan!";
     } else {
         $email = $conn->real_escape_string($email);
         $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            $error_message = "This email is already registered!";
+            $error_message = "Email sudah terdaftar!";
         } else {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -166,6 +166,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
         const confirmPasswordField = document.getElementById('confirm_password');
 
+        const form = document.querySelector('form');
+        const submitButton = document.querySelector('button[type="submit"]');
+        const errorMessage = "<?php echo isset($error_message) ? $error_message : ''; ?>";
+
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+
         togglePassword.addEventListener('click', function() {
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
@@ -183,6 +191,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 confirmPasswordField.type = 'password';
                 toggleConfirmPassword.classList.replace('bxs-hide', 'bxs-show');
+            }
+        });
+
+        submitButton.addEventListener('click', function(event) {
+            var username = document.querySelector('input[name="username"]').value;
+            var email = document.querySelector('input[name="email"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+            var confirmPassword = document.querySelector('input[name="confirm_password"]').value;
+            var agreeTerms = document.querySelector('input[name="agree_terms"]').checked;
+
+            if (!username || !email || !password || !confirmPassword) {
+                alert("Silahkan lengkapi data pengguna!");
+                event.preventDefault();
+            } else if (password !== confirmPassword) {
+                alert("Password dan Konfirmasi Password tidak sesuai!");
+                event.preventDefault();
+            } else if (!agreeTerms) {
+                alert("Anda harus menyetujui syarat dan ketentuan!");
+                event.preventDefault();
             }
         });
     </script>

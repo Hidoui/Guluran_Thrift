@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error_message = "Invalid email or password!";
         }
     } else {
-        $error_message = "User not found!";
+        $error_message = "Pengguna tidak ditemukan!";
     }
 }
 ?>
@@ -156,6 +156,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         const togglePassword = document.getElementById('togglePassword');
         const passwordField = document.getElementById('password');
 
+        const form = document.querySelector('form');
+        const confirmButton = document.querySelector('button[type="submit"]');
+
         togglePassword.addEventListener('click', function() {
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
@@ -163,6 +166,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 passwordField.type = 'password';
                 togglePassword.classList.replace('bxs-hide', 'bxs-show');
+            }
+        });
+
+        confirmButton.addEventListener('click', function(event) {
+            var email = document.querySelector('input[name="email"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+
+            if (!email && !password) {
+                alert("Silahkan masukkan Email dan Password!");
+                event.preventDefault();
+            } else if (!email) {
+                alert("Silahkan masukkan Email!");
+                event.preventDefault();
+            } else if (!password) {
+                alert("Silahkan masukkan Password!");
+                event.preventDefault();
             }
         });
     </script>

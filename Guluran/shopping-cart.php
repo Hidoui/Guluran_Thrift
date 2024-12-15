@@ -139,13 +139,13 @@ $cart_empty = count($items) == 0;
                                             </div>
                                             <div class="product__cart__item__text">
                                                 <h5><?php echo $item['name']; ?></h5>
-                                                <h6>Rp.<?php echo number_format($item['price'], 0, ',', '.'); ?></h6>
+                                                <h6>Rp<?php echo number_format($item['price'], 0, ',', '.'); ?></h6>
                                             </div>
                                         </td>
                                         <td class="cart__price">
                                             <span><?php echo $item['quantity']; ?></span>
                                         </td>
-                                        <td class="cart__price">Rp.<?php echo number_format($item['total_price'], 0, ',', '.'); ?></td>
+                                        <td class="cart__price">Rp<?php echo number_format($item['total_price'], 0, ',', '.'); ?></td>
                                         <td class="cart__close">
                                             <a href="?delete=<?php echo $item['cart_item_id']; ?>" class="bx bx-x" style="color:#111111; font-size: 20px; padding-top: 4px"></a>
                                         </td>
@@ -166,7 +166,7 @@ $cart_empty = count($items) == 0;
                     <div class="cart__summary">
                         <h4 class="summary__title">Keranjang Anda</h4>
                         <ul class="cart__total__all">
-                            <li>Total <span>Rp.<?php echo number_format($total, 0, ',', '.'); ?></span></li>
+                            <li>Total <span>Rp<?php echo number_format($total, 0, ',', '.'); ?></span></li>
                         </ul>
                         <a href="<?php echo $cart_empty ? '#' : './checkout.php'; ?>"
                             class="site-btn" id="checkout-button"
@@ -196,8 +196,7 @@ $cart_empty = count($items) == 0;
 
     <script type="text/javascript">
         function showPopup() {
-            alert('Keranjang kosong. Silakan tambah produk terlebih dahulu.');
-            window.location.href = 'shopping-cart.php';
+            alert('Keranjang kosong. Silahkan tambah produk terlebih dahulu!');
         }
     </script>
 </body>

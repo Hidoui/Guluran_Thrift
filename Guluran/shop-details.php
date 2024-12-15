@@ -75,7 +75,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         exit;
     }
 } else {
-    echo "ID produk tidak valid!";
+    echo "ID Produk tidak ditemukan!";
     exit;
 }
 ?>
@@ -171,7 +171,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <div class="col-lg-8">
                         <div class="product__details__text">
                             <h3><?php echo $product['name']; ?></h3>
-                            <h4>Rp.<?php echo number_format($product['price'], 2, ',', '.'); ?></h4>
+                            <h4>Rp<?php echo number_format($product['price'], 2, ',', '.'); ?></h4>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
@@ -262,7 +262,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         const productExists = urlParams.get('exists');
 
         if (productExists) {
-            alert('Produk sudah ada di keranjang!');
+            alert('Produk sudah ada di dalam keranjang!');
             urlParams.delete('exists');
             window.history.replaceState({}, '', '?' + urlParams.toString());
         }

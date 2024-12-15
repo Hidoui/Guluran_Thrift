@@ -18,7 +18,7 @@ $result_user = $stmt_user->get_result();
 if ($result_user->num_rows > 0) {
     $user = $result_user->fetch_assoc();
 } else {
-    echo "User not found.";
+    echo "Pengguna tidak ditemukan!";
     exit;
 }
 
@@ -118,7 +118,7 @@ $result_orders = $stmt_orders->get_result();
                                                     <?php while ($order = $result_orders->fetch_assoc()): ?>
                                                         <tr>
                                                             <td><?php echo $order['order_id']; ?></td>
-                                                            <td><?php echo "Rp." . number_format($order['total_amount'], 0, ',', '.'); ?>,00</td>
+                                                            <td><?php echo "Rp" . number_format($order['total_amount'], 0, ',', '.'); ?>,00</td>
                                                             <td><?php echo date('d-m-Y', strtotime($order['created_at'])); ?></td>
                                                             <td><?php echo $order['payment']; ?></td>
                                                             <td><?php echo $order['status']; ?></td>

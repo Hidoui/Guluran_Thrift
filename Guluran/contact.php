@@ -52,7 +52,7 @@ include('header.php');
                                 <p>Jl. Letnan Suprayitno, Krajan, Kecamatan Arjasa, Kabupaten Jember, Jawa Timur 68191, Indonesia.</p>
                                 <br>
                                 <h4>Hubungi Kami</h4>
-                                <p>Telepon: +62 857-4605-4929 <br />Email: support@guluranthrift.com</p>
+                                <p>Telepon: +62 857-4605-4929 <br />Email: guluran@thrift.com</p>
                             </li>
                         </ul>
                     </div>

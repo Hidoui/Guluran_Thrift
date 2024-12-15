@@ -794,6 +794,11 @@ ol {
 	background: #111111;
 }
 
+.product__item.sold .product__item__pic .label {
+	color: #ffffff;
+	background: #111111;
+}
+
 .product__item:hover .product__item__pic .product__hover {
 	right: 20px;
 	opacity: 1;
@@ -1394,7 +1399,7 @@ ol {
     height: 100%;
     object-fit: contain;
 	position: relative;
-	left: 15%;
+	left: 12%;
 }
 
 .product__details__pic__item a {

@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $category_filter = '';
 $price_filter = '';
 $size_filter = '';
+$search_filter = '';
 
 if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
     $category_filter = " WHERE category_id = " . $_GET['category_id'];
@@ -30,8 +31,25 @@ if (isset($_GET['size']) && in_array($_GET['size'], ['S', 'M', 'L', 'XL'])) {
     $size_filter = " AND size = '" . $_GET['size'] . "'";
 }
 
-$sql = "SELECT * FROM products" . $category_filter . $price_filter . $size_filter;
-$result = $conn->query($sql);
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search_term = "%" . $_GET['search'] . "%";
+    $search_filter = " WHERE name LIKE ?";
+}
+
+$sql = "SELECT * FROM products" . $category_filter . $price_filter . $size_filter . $search_filter;
+if ($stmt = $conn->prepare($sql)) {
+    if (!empty($search_filter)) {
+        $stmt->bind_param('s', $search_term);
+    }
+    $stmt->execute();
+    $result = $stmt->get_result();
+}
+
+if ($search_filter) {
+    $stmt->bind_param("s", $search_term);
+}
+$stmt->execute();
+$result = $stmt->get_result();
 
 $sql_categories = "SELECT * FROM categories";
 $result_categories = $conn->query($sql_categories);
@@ -155,7 +173,7 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
                                                             echo '<li><a href="?category_id=' . $category_id . '">' . $category_name . '</a></li>';
                                                         }
                                                     } else {
-                                                        echo "No categories found";
+                                                        echo "Kategori tidak ditemukan";
                                                     }
                                                     ?>
                                                 </ul>
@@ -214,50 +232,56 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
                                 $product_id = $row['product_id'];
                                 $product_name = $row['name'];
                                 $product_description = $row['description'];
+                                $stock = $row['stock'];
                                 $product_price = $row['price'];
                                 $product_image = $row['image'];
                                 $created_at = $row['created_at'];
 
                                 $time_diff = strtotime('now') - strtotime($created_at);
-                                $is_new = ($time_diff <= 3600);
-
-                                $is_sale = ($product_price > 100000);
+                                $is_new = ($time_diff <= 86400);
+                                $is_sale = ($product_price > 199999);
 
                                 $new_class = $is_new ? 'new-arrivals' : '';
                                 $sale_class = $is_sale ? 'best-sellers' : '';
+                                $sold_class = ($stock == 0) ? 'sold' : '';
+                                $label_text = ($stock == 0) ? 'Sold' : ($is_new ? 'New' : ($is_sale ? 'Best' : ''));
 
                                 echo '<div class="col-lg-4 col-md-6 col-sm-6 mix ' . $new_class . ' ' . $sale_class . '">';
-                                echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . '">';
-                                echo '<div class="product__item__pic set-bg" data-setbg="admin/pages/uploads/' . $product_image . '">' .
-                                    ($is_new ? '<span class="label">New</span>' : '') .
-                                    ($is_sale ? '<span class="label">Best</span>' : '') .
-                                    '<ul class="product__hover">' .
-                                    '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>' .
-                                    '<li><a href="?add_to_cart=' . $product_id . '"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>' .
-                                    '</ul>' .
-                                    '</div>';
+                                echo '<div class="product__item ' . ($is_sale ? 'sale' : '') . ' ' . $sold_class . '">';
+                                echo '<div class="product__item__pic set-bg" data-setbg="admin/pages/uploads/' . $product_image . '">';
+
+                                if ($stock == 0) {
+                                    echo '<span class="label">Sold</span>';
+                                } elseif ($is_new) {
+                                    echo '<span class="label">New</span>';
+                                }
+
+                                if ($stock == 0) {
+                                    echo '<span class="label">Sold</span>';
+                                } elseif ($is_sale) {
+                                    echo '<span class="label">Best</span>';
+                                }
+
+                                echo '<ul class="product__hover">';
+                                if ($stock > 0) {
+                                    echo '<li><a href="./shop-details.php?id=' . $product_id . '"><img src="img/icon/search.png" alt=""> <span>Details</span></a></li>';
+                                }
+                                if ($stock > 0) {
+                                    echo '<li><a href="?add_to_cart=' . $product_id . '"><img src="img/icon/cart.png" alt=""> <span>Cart</span></a></li>';
+                                }
+                                echo '</ul>';
+                                echo '</div>';
                                 echo '<div class="product__item__text">';
                                 echo '<h5>' . $product_name . '</h5>';
-                                echo '<h6>Rp.' . number_format($product_price, 0, ',', '.') . '</h6>';
+                                echo '<h6>Rp' . number_format($product_price, 0, ',', '.') . '</h6>';
                                 echo '</div>';
                                 echo '</div>';
                                 echo '</div>';
                             }
                         } else {
-                            echo "No products found";
+                            echo "Produk tidak ditemukan";
                         }
                         ?>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="product__pagination">
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <span>...</span>
-                                <a href="#">10</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -286,7 +310,7 @@ if (isset($_GET['add_to_cart']) && is_numeric($_GET['add_to_cart'])) {
         const productExists = urlParams.get('exists');
 
         if (productExists) {
-            alert('Produk sudah ada di keranjang!');
+            alert('Produk sudah ada di dalam keranjang!');
             urlParams.delete('exists');
             window.history.replaceState({}, '', '?' + urlParams.toString());
         }

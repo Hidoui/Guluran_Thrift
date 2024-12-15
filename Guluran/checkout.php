@@ -23,7 +23,7 @@ $items = [];
 $total = 0;
 while ($row = $result->fetch_assoc()) {
     if (!isset($row['product_id']) || $row['product_id'] == null) {
-        echo "Error: Product ID tidak ditemukan pada item cart!";
+        echo "Error: ID Produk tidak ditemukan!";
     } else {
         $items[] = $row;
         $total += $row['total_price'];
@@ -49,6 +49,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $order_id = $stmt->insert_id;
 
         foreach ($items as $item) {
+            $product_id = $item['product_id'];
+            $quantity = $item['quantity'];
+
+            $stock_sql = "SELECT stock FROM products WHERE product_id = ?";
+            $stmt = $conn->prepare($stock_sql);
+            $stmt->bind_param("i", $product_id);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($stock);
+            $stmt->fetch();
+            $stmt->free_result();
+
+            if ($stock >= $quantity) {
+                $new_stock = $stock - $quantity;
+
+                if ($new_stock == 0) {
+                    $update_stock_sql = "UPDATE products SET stock = 0 WHERE product_id = ?";
+                    $stmt = $conn->prepare($update_stock_sql);
+                    $stmt->bind_param("i", $product_id);
+                    $stmt->execute();
+                    $stmt->free_result();
+                } else {
+                    $update_stock_sql = "UPDATE products SET stock = ? WHERE product_id = ?";
+                    $stmt = $conn->prepare($update_stock_sql);
+                    $stmt->bind_param("ii", $new_stock, $product_id);
+                    $stmt->execute();
+                    $stmt->free_result();
+                }
+            } else {
+                echo "Stok produk tidak mencukupi" . $item['name'];
+                exit;
+            }
+
             $order_item_sql = "INSERT INTO order_items (order_id, product_id, quantity, total_price) 
                                VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($order_item_sql);
@@ -129,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <form method="POST">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <h6 class="checkout__title">Alamat Pengiriman</h6>
+                            <h6 class="checkout__title">Data Pengiriman</h6>
                             <div class="checkout__input">
                                 <p>Nama Lengkap<span>*</span></p>
                                 <input type="text" name="fullname" required>
@@ -169,11 +202,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <div class="checkout__order__products">Produk <span>Harga</span></div>
                                 <ul class="checkout__total__products">
                                     <?php foreach ($items as $item) { ?>
-                                        <li><?php echo $item['name']; ?> <span>Rp. <?php echo number_format($item['total_price'], 0, ',', '.'); ?></span></li>
+                                        <li><?php echo $item['name']; ?> <span>Rp<?php echo number_format($item['total_price'], 0, ',', '.'); ?></span></li>
                                     <?php } ?>
                                 </ul>
                                 <ul class="checkout__total__all">
-                                    <li>Total <span>Rp. <?php echo number_format($total, 0, ',', '.'); ?></span></li>
+                                    <li>Total <span>Rp<?php echo number_format($total, 0, ',', '.'); ?></span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
@@ -215,8 +248,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script>
         function confirmOrder(event) {
-            var paymentChecked = document.querySelector('input[name="payment"]:checked');
-
             var fullname = document.querySelector('input[name="fullname"]').value;
             var province = document.querySelector('input[name="province"]').value;
             var city = document.querySelector('input[name="city"]').value;
@@ -224,20 +255,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             var postal_code = document.querySelector('input[name="postal_code"]').value;
             var address = document.querySelector('input[name="address"]').value;
             var phone = document.querySelector('input[name="phone"]').value;
+            var paymentChecked = document.querySelector('input[name="payment"]:checked');
 
             if (!fullname || !province || !city || !district || !postal_code || !address || !phone) {
-                alert("Silakan lengkapi data pengiriman.");
+                alert("Silahkan lengkapi data pengiriman!");
                 event.preventDefault();
                 return false;
             }
 
             if (!paymentChecked) {
-                alert("Silakan pilih metode pembayaran.");
+                alert("Silahkan pilih metode pembayaran!");
                 event.preventDefault();
                 return false;
             }
 
-            var userConfirmation = confirm("Apakah Anda yakin ingin melanjutkan pesanan?");
+            var userConfirmation = confirm("Apakah anda yakin ingin melanjutkan pesanan?");
             if (!userConfirmation) {
                 event.preventDefault();
             }
@@ -245,7 +277,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         document.querySelector('.site-btn').addEventListener('click', confirmOrder);
     </script>
-
 </body>
 
 </html>
