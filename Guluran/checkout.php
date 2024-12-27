@@ -9,6 +9,40 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
+$user_sql = "SELECT username FROM users WHERE user_id = ?";
+$stmt = $conn->prepare($user_sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$user_result = $stmt->get_result();
+$user_fullname = '';
+
+if ($user_row = $user_result->fetch_assoc()) {
+    $user_fullname = $user_row['username'];
+}
+
+$sql = "SELECT address, province, city, district, postal_code, phone 
+        FROM orders 
+        WHERE user_id = ? 
+        ORDER BY created_at DESC 
+        LIMIT 1";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$shipping_data = [
+    'address' => '',
+    'province' => '',
+    'city' => '',
+    'district' => '',
+    'postal_code' => '',
+    'phone' => ''
+];
+
+if ($row = $result->fetch_assoc()) {
+    $shipping_data = $row;
+}
+
 $sql = "SELECT ci.cart_item_id, p.name, ci.quantity, p.price, (p.price * ci.quantity) AS total_price, p.product_id 
         FROM cart_items ci
         JOIN products p ON ci.product_id = p.product_id
@@ -165,31 +199,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <h6 class="checkout__title">Data Pengiriman</h6>
                             <div class="checkout__input">
                                 <p>Nama Lengkap<span>*</span></p>
-                                <input type="text" name="fullname" required>
+                                <input type="text" name="fullname" value="<?php echo $user_fullname; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Provinsi<span>*</span></p>
-                                <input type="text" name="province" required>
+                                <input type="text" name="province" value="<?php echo $shipping_data['province']; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Kota<span>*</span></p>
-                                <input type="text" name="city" required>
+                                <input type="text" name="city" value="<?php echo $shipping_data['city']; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Kecamatan<span>*</span></p>
-                                <input type="text" name="district" required>
+                                <input type="text" name="district" value="<?php echo $shipping_data['district']; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Kode Pos<span>*</span></p>
-                                <input type="text" name="postal_code" required>
+                                <input type="text" name="postal_code" value="<?php echo $shipping_data['postal_code']; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Alamat<span>*</span></p>
-                                <input type="text" name="address" required class="checkout__input__add">
+                                <input type="text" name="address" value="<?php echo $shipping_data['address']; ?>" required class="checkout__input__add">
                             </div>
                             <div class="checkout__input">
                                 <p>No. Telepon<span>*</span></p>
-                                <input type="text" name="phone" required>
+                                <input type="text" name="phone" value="<?php echo $shipping_data['phone']; ?>" required>
                             </div>
                             <div class="checkout__input">
                                 <p>Pesan</p>

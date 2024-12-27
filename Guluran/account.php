@@ -83,10 +83,10 @@ $result_orders = $stmt_orders->get_result();
                     <div class="col-lg-12">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab">Profile</a>
+                                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab">Profil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab">Orders</a>
+                                <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab">Pesanan</a>
                             </li>
                         </ul>
                     </div>
@@ -107,8 +107,8 @@ $result_orders = $stmt_orders->get_result();
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Total Harga</th>
                                                     <th>Tanggal</th>
+                                                    <th>Total Harga</th>
                                                     <th>Pembayaran</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -118,8 +118,8 @@ $result_orders = $stmt_orders->get_result();
                                                     <?php while ($order = $result_orders->fetch_assoc()): ?>
                                                         <tr>
                                                             <td><?php echo $order['order_id']; ?></td>
-                                                            <td><?php echo "Rp" . number_format($order['total_amount'], 0, ',', '.'); ?>,00</td>
                                                             <td><?php echo date('d-m-Y', strtotime($order['created_at'])); ?></td>
+                                                            <td><?php echo "Rp" . number_format($order['total_amount'], 0, ',', '.'); ?>,00</td>
                                                             <td><?php echo $order['payment']; ?></td>
                                                             <td><?php echo $order['status']; ?></td>
                                                             <td class="cart__close">
@@ -129,7 +129,7 @@ $result_orders = $stmt_orders->get_result();
                                                     <?php endwhile; ?>
                                                 <?php else: ?>
                                                     <tr>
-                                                        <td colspan="5" class="no-orders">No orders found</td>
+                                                        <td colspan="5" class="no-orders">Pesanan tidak ditemukan</td>
                                                     </tr>
                                                 <?php endif; ?>
                                             </tbody>

@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             exit();
         } else {
-            $error_message = "Invalid email or password!";
+            $error_message = "Email atau Password salah!";
         }
     } else {
         $error_message = "Pengguna tidak ditemukan!";
@@ -109,13 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <span class="bx bxs-show" id="togglePassword"></span>
                                 </div>
                             </div>
-                            <div class="checkout__input__checkbox">
+                            <!-- <div class="checkout__input__checkbox">
                                 <label for="remember-me">
                                     Lupa Password
                                     <input type="checkbox" id="remember-me">
                                     <span class="checkmark"></span>
                                 </label>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="continue__btn update__btn">
