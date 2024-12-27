@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $username = 'root';
-$password = 'root';
+$password = '';
 $db = 'guluran_thrift';
 
 $conn = new mysqli($host, $username, $password, $db);
